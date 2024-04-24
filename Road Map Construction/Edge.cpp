@@ -12,9 +12,8 @@ Edge::Edge(string destCity, int w)
 
 void Edge::setEdgeValue(string destCity, int w)
 {
-	this->destinationCity = destCity;
-	this->weight = w;
-
+	destinationCity = destCity;
+	weight = w;
 }
 
 string Edge::getDestinationCity()

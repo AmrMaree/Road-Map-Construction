@@ -16,7 +16,7 @@ string City::getCityName()
 
 void City::setCityName(string cityName)
 {
-	cityName = cityName;
+	this->cityName = cityName;
 }
 
 list<Edge> City::getEdgeList()
