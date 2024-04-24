@@ -13,6 +13,5 @@ public:
 	string getSourceCity();
 	string getDestinationCity();
 	int getWeight();
-
 };
 
