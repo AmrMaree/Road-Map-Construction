@@ -20,7 +20,7 @@ void City::setCityName(string cityName)
 	this->cityName = cityName;
 }
 
-list<Edge> City::getEdgeList()
+vector <Edge> City::getEdgeList()
 {
-	return list<Edge>();
+	return edgeList;
 }

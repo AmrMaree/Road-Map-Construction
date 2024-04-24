@@ -9,7 +9,7 @@ private:
 	int weight;
 public:
 	Edge();
-	Edge(string sourceCity ,string destCity, int w);
+	Edge(string sourceCity,string destCity, int w);
 	string getSourceCity();
 	string getDestinationCity();
 	int getWeight();
