@@ -1,5 +1,4 @@
 #include<string>
-#include<List>
 #include"Edge.h"
 #pragma once
 using namespace std;
@@ -7,7 +6,7 @@ class City
 {
 	private:
 		string cityName;
-		list <Edge> edgeList;
+		vector <Edge> edgeList;
 
 	public:
 		City();

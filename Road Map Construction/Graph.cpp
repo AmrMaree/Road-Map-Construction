@@ -11,7 +11,10 @@ City Graph::getCity(string cityName)
 
 bool Graph::CityExist(string cityName)
 {
-	return false;
+	if (cities.find(cityName) == cities.end())
+		return false;
+	else
+		return true;
 }
 
 void Graph::deleteCity(string cityName)
@@ -20,13 +23,15 @@ void Graph::deleteCity(string cityName)
 
 void Graph::addEdge(string destinationCity, string sourceCity, int weight)
 {
+
 }
 
 bool Graph::EdgeExist(string destinationCity, string sourceCity)
 {
-	return false;
+	
 }
 
 void Graph::deleteEdge(string destinationCity, string sourceCity)
 {
+
 }
