@@ -2,6 +2,7 @@
 
 City::City()
 {
+	cityName = " ";
 }
 
 City::City(string cityName)
