@@ -3,10 +3,15 @@
 using namespace std;
 class Edge
 {
-	int destinationCity;
-	int weight;
-	Edge();
-	Edge(int destCity, int w);
-	void setEdgeValue(string destCity, int w);
+	private:
+		string destinationCity;
+		int weight;
+	public:
+		Edge();
+		Edge(string destCity, int w);
+		void setEdgeValue(string destCity, int w);
+		string getDestinationCity();
+		int getWeight();
+
 };
 

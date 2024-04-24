@@ -1,8 +1,9 @@
 #include<List>
+#include<unordered_map>
 #include"City.h"
 #pragma once
 class Graph
 {
-	list<City>adjList;
+	unordered_map<string, City> cities;
 };
 

@@ -5,11 +5,15 @@
 using namespace std;
 class City
 {
-	int cityId;
-	string cityName;
-	list <Edge> edgeList;
-	City();
-	City(int id, string cityName);
+	private:
+		string cityName;
+		list <Edge> edgeList;
 
+	public:
+		City();
+		City(string cityName);
+		string getCityName();
+		void setCityName(string cityName);
+		list<Edge>getEdgeList();
 };
 
