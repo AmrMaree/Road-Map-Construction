@@ -2,7 +2,7 @@
 
 City::City()
 {
-	cityName = " ";
+	cityName = "";
 }
 
 City::City(string cityName)
