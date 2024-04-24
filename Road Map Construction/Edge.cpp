@@ -16,9 +16,7 @@ Edge::Edge(string sourceCity ,string destCity, int w)
 
 string Edge::getSourceCity()
 {
-	destinationCity = destCity;
-	weight = w;
-
+	return sourceCity;
 }
 
 string Edge::getDestinationCity()

@@ -1,6 +1,5 @@
 #include<string>
 #include"Edge.h"
-#pragma once
 #include <vector>
 using namespace std;
 class City
