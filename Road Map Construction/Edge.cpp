@@ -2,22 +2,23 @@
 
 Edge::Edge()
 {
+	sourceCity = "";
 	destinationCity = "";
 	weight = 0;
 }
 
-Edge::Edge(string destCity, int w)
+Edge::Edge(string sourceCity ,string destCity, int w)
 {
+	this->sourceCity = sourceCity;
 	destinationCity = destCity;
 	weight = w;
 }
 
-void Edge::setEdgeValue(string destCity, int w)
+string Edge::getSourceCity()
 {
-	destinationCity = destCity;
-	weight = w;
-
+	return sourceCity;
 }
+
 
 string Edge::getDestinationCity()
 {
