@@ -1,0 +1,24 @@
+[
+    {
+        "cities": [
+            {
+                "cityName": "cairo",
+                "edges": []
+            }
+        ],
+        "graphName": "1"
+    },
+    {
+        "cities": [
+            {
+                "cityName": "alex",
+                "edges": []
+            },
+            {
+                "cityName": "menofia",
+                "edges": []
+            }
+        ],
+        "graphName": "2"
+    }
+]

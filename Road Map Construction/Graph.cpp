@@ -29,7 +29,7 @@ void Graph::deleteCity(string cityName)
 
 void Graph::addEdge(string sourceCity, string destinationCity, int weight)
 {
-	if (cities.find(sourceCity) != cities.end() && cities.find(destinationCity) != cities.end()	) {
+    if (cities.find(sourceCity) != cities.end() && cities.find(destinationCity) != cities.end() && !EdgeExist(sourceCity,destinationCity)) {
 		cities[sourceCity].getEdgeList().push_back(Edge(sourceCity, destinationCity, weight));
 		cities[destinationCity].getEdgeList().push_back(Edge(destinationCity, sourceCity, weight));
 	}
@@ -80,4 +80,9 @@ void Graph::deleteEdge(string sourceCity, string destinationCity)
                 }
             }
     }
+}
+
+unordered_map<string, City> Graph::getCities()
+{
+    return cities;
 }
