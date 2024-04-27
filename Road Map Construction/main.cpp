@@ -1,13 +1,27 @@
 #include <iostream>
 #include "Graph.h"
+#include"MainMenu.h"
 #include<string>
 #include <fstream>
 #include <iomanip>
-#include <nlohmann/json.hpp> 
+#include <nlohmann/json.hpp>
+#include "SFML/Graphics.hpp"
 
+using namespace sf;
 using namespace std;
 using json = nlohmann::json;
-
+        
+void printMenu() {
+    cout << "Menu:\n";
+    cout << "1. Add city\n";
+    cout << "2. Check if city exists\n";
+    cout << "3. Add edge\n";
+    cout << "4. Check if edge exists\n";
+    cout << "5. Delete city\n";
+    cout << "6. Delete edge\n";
+    cout << "7. Exit\n";
+    cout << "Enter your choice: ";
+}
 void saveGraph(unordered_map<string, Graph> graphs, string filename) {
     try {
         json data = json::array(); 
@@ -59,7 +73,6 @@ void saveGraph(unordered_map<string, Graph> graphs, string filename) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
 }
-
 unordered_map<string, Graph> loadGraph(string filename) {
     unordered_map<string, Graph> graphs;
 
@@ -107,102 +120,34 @@ unordered_map<string, Graph> loadGraph(string filename) {
     return graphs;
 }
 
-
-
-//void save_to_file(unordered_map<string, Graph> graphs, string filename) {
-//    json data;
-//    for (auto [graph_name, graph] : graphs) {
-//        json graph_data = {
-//            {"graphName", graph_name},
-//            {"cities", json::array()}
-//        };
-//
-//        for (auto [city_name, city] : graph.getCities()) {
-//            json city_data = {
-//                {"cityName", city_name},
-//                {"edges", json::array()}
-//            };
-//
-//            for (const auto& [destination, weight] : city.getEdges()) {
-//                city_data["edges"].push_back({ {"destinationCity", destination}, {"weight", weight} });
-//            }
-//
-//            graph_data["cities"].push_back(city_data);
-//        }
-//
-//        data.push_back(graph_data);
-//    }
-//
-//    try {
-//        std::ofstream file(filename);
-//        file << data.dump(4); // Indent for better readability
-//    }
-//    catch (const std::exception& e) {
-//        std::cerr << "Error saving graph data: " << e.what() << std::endl;
-//    }
-//}
-//unordered_map<string, Graph> loadGraph(string filename) {
-//    unordered_map<string, Graph> graphs;
-//
-//    try {
-//        ifstream file(filename);
-//        if (!file.is_open()) {
-//            cerr << "Error: Unable to open file " << filename << " for reading." << std::endl;
-//            return graphs;
-//        }
-//
-//        json data;
-//        file >> data;
-//
-//        for (auto graphData : data) {
-//            string graphName = graphData["graphName"];
-//            graphs[graphName] = Graph(); 
-//
-//            for (auto cityData : graphData["cities"]) {
-//                string cityName = cityData["cityName"];
-//                if (!graphs[graphName].CityExist(cityName)) {
-//                    graphs[graphName].addCity(City(cityName));
-//                }
-//                for (auto edge : cityData["edges"]) {
-//                    string destination = edge["destinationCity"];
-//                    int weight = edge["weight"];
-//                    graphs[graphName].addEdge(cityName, destination, weight);
-//                }
-//            }
-//        }
-//
-//        file.close();
-//    }
-//    catch (const json::parse_error& e) {
-//        std::cerr << "Parse error while loading JSON file: " << e.what() << std::endl;
-//    }
-//    catch (const json::exception& e) {
-//        std::cerr << "JSON exception while loading JSON file: " << e.what() << std::endl;
-//    }
-//    catch (const std::exception& e) {
-//        std::cerr << "Exception while loading JSON file: " << e.what() << std::endl;
-//    }
-//
-//    return graphs;
-//}
-
 int main() {
-    unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
-    Graph graph;
-    int choice;
-    string cityName, sourceCity, destinationCity;
-    int weight;
+        RenderWindow window(VideoMode(1920, 1080), "RoadMap");
+        MainMenu mainMenu;
+        Graph graph;
+        mainMenu.load();
 
-    do {
-        cout << "Menu:\n";
-        cout << "1. Add city\n";
-        cout << "2. Check if city exists\n";
-        cout << "3. Add edge\n";
-        cout << "4. Check if edge exists\n";
-        cout << "5. Delete city\n";
-        cout << "6. Delete edge\n";
-        cout << "7. Exit\n";
-        cout << "Enter your choice: ";
+
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+
+            window.clear();
+            mainMenu.mainMenu(window,graph);
+            window.display();
+        }
+
+        unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
+
+
+        int choice;
+        string cityName, sourceCity, destinationCity;
+        int weight;
+
+    /*do {
+        printMenu();
         cin >> choice;
 
         switch (choice) {
@@ -251,7 +196,7 @@ int main() {
             cout << "Invalid choice. Please try again.\n";
         }
 
-    } while (choice != 7);
+    } while (choice != 7);*/
     graphs["2"] = graph;
     saveGraph(graphs, "myGraph.json");
 
