@@ -197,7 +197,7 @@ int main() {
         }
 
     } while (choice != 7);*/
-    graphs["2"] = graph;
+    graphs["1"] = graph;
     saveGraph(graphs, "myGraph.json");
 
     return 0;

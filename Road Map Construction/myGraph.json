@@ -2,68 +2,24 @@
     {
         "cities": [
             {
-                "cityName": "cairo",
+                "cityName": "amr",
+                "edges": []
+            },
+            {
+                "cityName": "joe",
+                "edges": [
+                    {
+                        "destinationCity": "george",
+                        "sourceCity": "joe",
+                        "weight": 1000
+                    }
+                ]
+            },
+            {
+                "cityName": "george",
                 "edges": []
             }
         ],
         "graphName": "1"
-    },
-    {
-        "cities": [
-            {
-                "cityName": "cairo",
-                "edges": [
-                    {
-                        "destinationCity": "asioot",
-                        "sourceCity": "cairo",
-                        "weight": 10
-                    }
-                ]
-            },
-            {
-                "cityName": "asioot",
-                "edges": [
-                    {
-                        "destinationCity": "cairo",
-                        "sourceCity": "asioot",
-                        "weight": 10
-                    }
-                ]
-            }
-        ],
-        "graphName": "4"
-    },
-    {
-        "cities": [
-            {
-                "cityName": "luxor",
-                "edges": [
-                    {
-                        "destinationCity": "menofia",
-                        "sourceCity": "luxor",
-                        "weight": 400
-                    }
-                ]
-            },
-            {
-                "cityName": "cairo",
-                "edges": []
-            },
-            {
-                "cityName": "aswan",
-                "edges": []
-            },
-            {
-                "cityName": "menofia",
-                "edges": [
-                    {
-                        "destinationCity": "luxor",
-                        "sourceCity": "menofia",
-                        "weight": 400
-                    }
-                ]
-            }
-        ],
-        "graphName": "2"
     }
 ]

@@ -30,11 +30,17 @@ void Graph::deleteCity(string cityName)
         cout << "Source city '" << cityName << "' does not exist.\n";
     }
 
-    /* for (int i = 0; i < cities[cityName].getEdgeList().size(); i++)
-     {
-         string Des = cities[cityName].getEdgeList().getDestinationCity();
-         vector<Edge>& edgeList = source.getEdgeList();
-     }*/
+    string reqDest;
+    /* string Des = cities[cityName].getEdgeList().getDestinationCity();*/
+    vector<Edge> edgeList = cities[cityName].getEdgeList();
+    for (Edge edge : edgeList)
+    {
+        reqDest = edge.getDestinationCity();
+        deleteEdge(cityName, reqDest);
+    }
+    cities.erase(cityName);
+    cout << cityName << "city is deleted successfully" << endl;
+
 }
 
 void Graph::addEdge(string sourceCity, string destinationCity, int weight)
