@@ -2,24 +2,29 @@
     {
         "cities": [
             {
-                "cityName": "amr",
-                "edges": []
-            },
-            {
-                "cityName": "joe",
-                "edges": [
-                    {
-                        "destinationCity": "george",
-                        "sourceCity": "joe",
-                        "weight": 1000
-                    }
-                ]
-            },
-            {
-                "cityName": "george",
+                "cityName": "cairo",
                 "edges": []
             }
         ],
         "graphName": "1"
+    },
+    {
+        "cities": [
+            {
+                "cityName": "a",
+                "edges": []
+            },
+            {
+                "cityName": "b",
+                "edges": [
+                    {
+                        "destinationCity": "a",
+                        "sourceCity": "b",
+                        "weight": 1
+                    }
+                ]
+            }
+        ],
+        "graphName": "2"
     }
 ]

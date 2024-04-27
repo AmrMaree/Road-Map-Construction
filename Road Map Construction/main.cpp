@@ -121,30 +121,29 @@ unordered_map<string, Graph> loadGraph(string filename) {
 }
 
 int main() {
-        RenderWindow window(VideoMode(1920, 1080), "RoadMap");
-        MainMenu mainMenu;
-        Graph graph;
-        mainMenu.load();
+    RenderWindow window(VideoMode(1920, 1080), "RoadMap");
+    MainMenu mainMenu;
+    Graph graph;
+    mainMenu.load();
 
 
-        while (window.isOpen()) {
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-            }
-
-            window.clear();
-            mainMenu.mainMenu(window,graph);
-            window.display();
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
         }
 
-        unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
+        window.clear();
+        mainMenu.mainMenu(window,graph);
+        window.display();
+    }
 
+    unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
 
-        int choice;
-        string cityName, sourceCity, destinationCity;
-        int weight;
+    int choice;
+    string cityName, sourceCity, destinationCity;
+    int weight;
 
     /*do {
         printMenu();
@@ -197,7 +196,13 @@ int main() {
         }
 
     } while (choice != 7);*/
-    graphs["1"] = graph;
+    int max = 0;
+    for (auto it = graphs.begin(); it != graphs.end(); it++)
+    {
+        if (stoi(it->first) >= max)
+            max = stoi(it->first);
+    }
+    graphs[to_string(max + 1)] = graph;
     saveGraph(graphs, "myGraph.json");
 
     return 0;
