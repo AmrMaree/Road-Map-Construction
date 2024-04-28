@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Graph.h"
 using namespace sf;
 class MainMenu
 {
@@ -50,7 +51,6 @@ private:
 public:
     MainMenu();
     void load();
-    void mainMenu(RenderWindow& window);
-    
+    void mainMenu(RenderWindow& window, Graph& graph);
 };
 

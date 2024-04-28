@@ -13,5 +13,6 @@ class City
 		string getCityName();
 		void setCityName(string cityName);
 		vector<Edge>getEdgeList();
+		void setEdgeList(vector<Edge> edgeList);
 };
 

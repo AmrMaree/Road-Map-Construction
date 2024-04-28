@@ -18,5 +18,6 @@ public:
 		void addEdge(string sourceCity, string destinationCity, int weight);
 		bool EdgeExist(string sourceCity, string destinationCity);
 		void deleteEdge(string sourceCity, string destinationCity);
+		unordered_map<string, City> getCities();
 };
 

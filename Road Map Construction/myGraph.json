@@ -1,0 +1,30 @@
+[
+    {
+        "cities": [
+            {
+                "cityName": "cairo",
+                "edges": []
+            }
+        ],
+        "graphName": "1"
+    },
+    {
+        "cities": [
+            {
+                "cityName": "a",
+                "edges": []
+            },
+            {
+                "cityName": "b",
+                "edges": [
+                    {
+                        "destinationCity": "a",
+                        "sourceCity": "b",
+                        "weight": 1
+                    }
+                ]
+            }
+        ],
+        "graphName": "2"
+    }
+]

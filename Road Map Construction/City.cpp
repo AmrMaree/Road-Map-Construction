@@ -6,7 +6,7 @@ City::City()
 }
 
 City::City(string cityName)
-{
+{	
 	this->cityName = cityName;
 }
 
@@ -23,4 +23,9 @@ void City::setCityName(string cityName)
 vector <Edge> City::getEdgeList()
 {
 	return edgeList;
+}
+
+void City::setEdgeList(vector<Edge> edgeList)
+{
+	this->edgeList = edgeList;
 }
