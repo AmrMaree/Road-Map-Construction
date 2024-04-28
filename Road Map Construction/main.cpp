@@ -1,7 +1,12 @@
 #include <iostream>
 #include "Graph.h"
+#include"MainMenu.h"
 #include<string>
+#include"SFML/Graphics.hpp"
+#include <nlohmann/json.hpp>
 using namespace std;
+using namespace sf;
+
 void printMenu() {
     cout << "Menu:\n";
     cout << "1. Add city\n";
@@ -15,8 +20,23 @@ void printMenu() {
 }
 
 int main() {
-    Graph graph;
+    RenderWindow window(sf::VideoMode(1920, 1080), "RoadMap");
+    MainMenu mainMenu;
+    mainMenu.load();
+    
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
 
+        window.clear();
+        mainMenu.mainMenu(window);
+        window.display();
+    }
+    
+    Graph graph;
     int choice;
     string cityName, sourceCity, destinationCity;
     int weight;

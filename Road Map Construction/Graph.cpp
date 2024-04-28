@@ -25,11 +25,12 @@ bool Graph::CityExist(string cityName)
 
 void Graph::deleteCity(string cityName)
 {
+    cout << "city deleted"<<endl;
 }
 
 void Graph::addEdge(string sourceCity, string destinationCity, int weight)
 {
-	if (cities.find(sourceCity) != cities.end() && cities.find(destinationCity) != cities.end()	) {
+	if (cities.find(sourceCity) != cities.end() && cities.find(destinationCity) != cities.end() && !EdgeExist(sourceCity,destinationCity)) {
 		cities[sourceCity].getEdgeList().push_back(Edge(sourceCity, destinationCity, weight));
 		cities[destinationCity].getEdgeList().push_back(Edge(destinationCity, sourceCity, weight));
 	}
@@ -41,20 +42,19 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
 bool Graph::EdgeExist(string sourceCity, string destinationCity)
 {
     City c = getCity(sourceCity);
-    vector <Edge> e;
-    e = c.getEdgeList();
-    bool flag = false;
-    for (auto it = e.begin(); it != e.end(); it++) {
-        if (it->getDestinationCity() == destinationCity) {
-            flag = true;
-            return flag;
+    vector <Edge> e = c.getEdgeList();
+
+    for (Edge edge:e) {
+        if (edge.getDestinationCity() == destinationCity) {
+            return true;
         }
     }
-    return flag;
+    return false;
 }
 
 void Graph::deleteEdge(string sourceCity, string destinationCity)
 {
+    cout << "edge deleted" << endl;
     bool check = EdgeExist(sourceCity, destinationCity);
     if (check)
     {
