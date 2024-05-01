@@ -101,10 +101,9 @@ unordered_map<string, Graph> loadGraph(string filename) {
                     graph.addEdge(cityName, destination, weight);
                 }
             }
-
             graphs[graphName] = graph;
         }
-
+        
         file.close();
     }
     catch (const json::parse_error& e) {
@@ -125,7 +124,7 @@ int main() {
     MainMenu mainMenu;
     Graph graph;
     mainMenu.load();
-
+    unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
 
     while (window.isOpen()) {
         sf::Event event;
@@ -135,11 +134,9 @@ int main() {
         }
 
         window.clear();
-        mainMenu.mainMenu(window,graph);
+        mainMenu.mainMenu(window,graph,graphs);
         window.display();
     }
-
-    unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
 
     int choice;
     string cityName, sourceCity, destinationCity;

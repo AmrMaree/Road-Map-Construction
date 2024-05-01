@@ -1,34 +1,35 @@
-    #include "MainMenu.h"
-    #include"Graph.h"
-    #include<iostream>
-    using namespace std;
+#include "MainMenu.h"
+#include"Graph.h"
+#include<iostream>
+using namespace std;
+using namespace sf;
 
-    MainMenu::MainMenu()
-    {
-    }
+MainMenu::MainMenu()
+{
+}
 
-    void MainMenu::load()
-    {
-        home.loadFromFile("Textures/map.png");
-        selectionMenu.loadFromFile("Textures/map.png");
-        addGraphPage.loadFromFile("Textures/map.png");  
-        loadGraphPage.loadFromFile("Textures/map.png");
-        addGraphButton.loadFromFile("Textures/Button.png");
-        loadGraphButton.loadFromFile("Textures/Button.png");
-        addIcon.loadFromFile("Textures/addIcon.png");
-        fileIcon.loadFromFile("Textures/fileIcon.png");
-        mapIcon.loadFromFile("Textures/mapIcon.png");
-        backIcon.loadFromFile("Textures/backIcon.png");
-        font.loadFromFile("Fonts/font.otf");
-        popUpBox.loadFromFile("Textures/popUp.png");
-    }
+void MainMenu::load()
+{
+    home.loadFromFile("Textures/map.png");
+    selectionMenu.loadFromFile("Textures/map.png");
+    addGraphPage.loadFromFile("Textures/map.png");
+    loadGraphPage.loadFromFile("Textures/map.png");
+    addGraphButton.loadFromFile("Textures/Button.png");
+    loadGraphButton.loadFromFile("Textures/Button.png");
+    addIcon.loadFromFile("Textures/addIcon.png");
+    fileIcon.loadFromFile("Textures/fileIcon.png");
+    mapIcon.loadFromFile("Textures/mapIcon.png");
+    backIcon.loadFromFile("Textures/backIcon.png");
+    font.loadFromFile("Fonts/font.otf");
+    popUpBox.loadFromFile("Textures/popUp.png");
+    border.loadFromFile("Textures/border.png");
+}
 
-    void MainMenu::mainMenu(RenderWindow& window, Graph& graph)
+    void MainMenu::mainMenu(RenderWindow& window, Graph& graph,unordered_map<string,Graph>graphs)
     {
         load();
         Sprite homeS(home);
 
-    Graph graph;
 
         bool addCityOpen = false;
         bool deleteCityOpen = false;
@@ -46,6 +47,9 @@
 
         Sprite displayGraphS(loadGraphPage);
         displayGraphS.setPosition(7680, 0);
+
+        Sprite graphDataS(loadGraphPage);
+        displayGraphS.setPosition(9600, 0);
 
         Sprite addGraphButtonS(addGraphButton);
         addGraphButtonS.setScale(0.35, 0.35);
@@ -93,6 +97,14 @@
 
         RectangleShape closePopUp(sf::Vector2f(40, 40));
         closePopUp.setPosition(popUpBoxS.getPosition().x + 512, popUpBoxS.getPosition().y + 19);
+        
+        Sprite borderS[30];
+        for (auto i = 0; i < graphs.size(); i++)
+        {
+            borderS[i].setTexture(border);
+            borderS[i].setScale(0.55f, 0.6f);
+            borderS[i].setPosition(6530, (125 * i) + 238);
+        }
 
         addGraphButtonText.setString("Add Graph");
         addGraphButtonText.setFont(font);
@@ -247,6 +259,12 @@
         deleteEdgeInfo[1].setOutlineThickness(1.2);;
         deleteEdgeInfo[1].setPosition(popUpBoxS.getPosition().x + 415, popUpBoxS.getPosition().y + 170);
 
+        selectGraphName.setString("Select A Graph");
+        selectGraphName.setFont(font);
+        selectGraphName.setScale(2,2);
+        selectGraphName.setOutlineThickness(1.5);
+        selectGraphName.setPosition(6519, 100);
+
         int activeFieldAddCity = 0;
         int activeFieldDeleteCity = 0;
         int activeFieldAddEdge = 0;
@@ -261,6 +279,7 @@
         View pane3(FloatRect(3840, 0, 1920, 1080));//addGraph page
         View pane4(FloatRect(5760, 0, 1920, 1080));//loadGraph page
         View pane5(FloatRect(7680, 0, 1920, 1080));//DisplayGraph page 
+        View pane6(FloatRect(9600, 0, 1920, 1080));//GraphData page
         while (window.isOpen())
         {
             window.setPosition(Vector2i(-8, -8));
@@ -285,7 +304,26 @@
                         if (loadGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
                         {
                             window.setView(pane4);
+                            for (auto graphsIt = graphs.begin(); graphsIt != graphs.end(); graphsIt++)
+                            {
+                                Text graphNameT(graphsIt->first, font, 24);
+                                graphNameT.setScale(2, 2);
+                                graphNameT.setOutlineThickness(1.2);
+                                graphName.push_back(graphNameT); 
+                            }
                         }
+                        for (int i = 0; i < graphs.size(); ++i)
+                        {
+                            if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y))
+                            {
+                                window.setView(pane6);
+                                Graph selectedGraph=graphs[to_string(i+1)];
+                                for (auto cityPair : selectedGraph.getCities()) {
+                                    cout << cityPair.second.getCityName() << " ";
+                                }
+                            }
+                        }
+                        
 
                         if (addCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                         {
@@ -518,6 +556,7 @@
                 window.draw(addGraphPageS);
                 window.draw(loadGraphPageS);
                 window.draw(displayGraphS);
+                window.draw(graphDataS);
                 window.draw(Start);
                 window.draw(addGraphButtonS);
                 window.draw(loadGraphButtonS);
@@ -536,6 +575,7 @@
                 window.draw(addEdgeText);
                 window.draw(deleteEdgeText);
                 window.draw(displayGraphText);
+                window.draw(selectGraphName);
                 if (addCityOpen) {
                     window.draw(popUpBoxS);
                     window.draw(saveInfoPopUpAddCity);
@@ -573,9 +613,16 @@
                         window.draw(deleteEdgeInfo[i]);
                     }
                 }
+                for (auto i = 0; i < graphs.size(); i++)
+                {
+                    window.draw(borderS[i]);
+                }
+                for (auto i = 0; i < graphName.size(); ++i)
+                {
+                    graphName[i].setPosition(6700, 250 + (125 * i));
+                    window.draw(graphName[i]);
+                }
                 window.display();
             }
         }
     }
-
-

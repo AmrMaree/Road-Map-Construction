@@ -9,8 +9,12 @@ using namespace std;
 
 class Graph
 {
-public:
+private:
 		unordered_map<string, City> cities;
+		string graphName;
+public:
+		string getGraphName();
+		void setGraphName();
 		void addCity(City newCity);
 		City getCity(string cityName);
 		bool CityExist(string cityName);

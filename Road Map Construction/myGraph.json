@@ -4,6 +4,22 @@
             {
                 "cityName": "cairo",
                 "edges": []
+            },
+            {
+                "cityName": "alex",
+                "edges": []
+            },
+            {
+                "cityName": "giza ",
+                "edges": []
+            },
+            {
+                "cityName": "kena",
+                "edges": []
+            },
+            {
+                "cityName": "fayoum",
+                "edges": []
             }
         ],
         "graphName": "1"
@@ -11,20 +27,34 @@
     {
         "cities": [
             {
-                "cityName": "a",
+                "cityName": "cairo",
                 "edges": []
             },
             {
-                "cityName": "b",
-                "edges": [
-                    {
-                        "destinationCity": "a",
-                        "sourceCity": "b",
-                        "weight": 1
-                    }
-                ]
+                "cityName": "alex",
+                "edges": []
+            },
+            {
+                "cityName": "menya",
+                "edges": []
             }
         ],
         "graphName": "2"
+    },
+    {
+        "cities": [],
+        "graphName": "3"
+    },
+    {
+        "cities": [],
+        "graphName": "4"
+    },
+    {
+        "cities": [],
+        "graphName": "5"
+    },
+    {
+        "cities": [],
+        "graphName": "6"
     }
 ]

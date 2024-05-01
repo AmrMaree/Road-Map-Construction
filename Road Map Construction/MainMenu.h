@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Graph.h"
+#include"Graph.h"
 using namespace sf;
 class MainMenu
 {
@@ -16,6 +16,7 @@ private:
     Texture fileIcon;
     Texture backIcon;
     Texture popUpBox;
+    Texture border;
 
     Text StartText;
     Text addGraphButtonText;
@@ -41,7 +42,8 @@ private:
     Text EnterSourceCityNameDeleteEdge;
     Text EnterDestinationCityNameDeleteEdge;
     Text deleteEdgeInfo[2];
-
+    Text selectGraphName;
+    vector<Text>graphName;
 
     Font font;
 
@@ -51,6 +53,8 @@ private:
 public:
     MainMenu();
     void load();
-    void mainMenu(RenderWindow& window, Graph& graph);
+    void mainMenu(RenderWindow& window,Graph& graph, unordered_map<string, Graph>graphs);
+    
 };
+
 

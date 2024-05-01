@@ -48,7 +48,7 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
     vector <Edge> edgeListSource;
     vector <Edge> edgeListDestination;
 
-    if (!CityExist(sourceCity))
+   /* if (!CityExist(sourceCity))
     {
         cout << "Source city '" << sourceCity << "' does not exist.\n";
         cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
@@ -78,12 +78,12 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
         {
             return;
         }
-    }
+    }*/
 
-    if (EdgeExist(sourceCity, destinationCity)) {
+    /*if (EdgeExist(sourceCity, destinationCity)) {
         cout << "Edge from '" << sourceCity << "' to '" << destinationCity << "' already exists.\n";
         return;
-    }
+    }*/
 
     edgeListSource = cities[sourceCity].getEdgeList();
     edgeListSource.push_back(Edge(sourceCity, destinationCity, weight));
