@@ -55,8 +55,6 @@ private:
 public:
     MainMenu();
     void load();
-    void mainMenu(RenderWindow& window,Graph& graph, unordered_map<string, Graph>graphs);
-    
+    void mainMenu(RenderWindow& window, Graph& graph, unordered_map<string, Graph>& graphs);
+
 };
-
-

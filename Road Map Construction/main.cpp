@@ -196,10 +196,11 @@ int main() {
     int max = 0;
     for (auto it = graphs.begin(); it != graphs.end(); it++)
     {
-        if (stoi(it->first) >= max)
+        if (stoi(it->first) > max)
             max = stoi(it->first);
     }
-    graphs[to_string(max + 1)] = graph;
+    if(graphs[to_string(max)].getGraphName() != graph.getGraphName())
+        graphs[to_string(max+1)] = graph;
     saveGraph(graphs, "myGraph.json");
 
     return 0;

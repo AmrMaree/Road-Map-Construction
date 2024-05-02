@@ -1,27 +1,6 @@
 [
     {
-        "cities": [
-            {
-                "cityName": "a",
-                "edges": []
-            },
-            {
-                "cityName": "b",
-                "edges": []
-            },
-            {
-                "cityName": "c",
-                "edges": []
-            }
-        ],
+        "cities": [],
         "graphName": "1"
-    },
-    {
-        "cities": [],
-        "graphName": "2"
-    },
-    {
-        "cities": [],
-        "graphName": "3"
     }
 ]
