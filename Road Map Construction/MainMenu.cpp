@@ -40,6 +40,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool displayGraphOpen = false;
     bool loadGraphDataOpen = false;
     bool startOpen = true;
+    bool backIconLoadGraphOpen = false;
+    bool backIconAddGraphOpen = false;
 
 
     Sprite selectionMenuS(selectionMenu);
@@ -314,9 +316,11 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 {
                     if (Start.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) && startOpen) {
                         startOpen = false;
+                        loadGraphOpen = true;
+                        addGraphOpen = true;
                         window.setView(pane2);                   
                     }
-                    if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
+                    if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y) && addGraphOpen)
                     {
                         graph.setGraphName(to_string(max + 1));
                         graphs[to_string(max + 1)] = graph;
@@ -326,35 +330,39 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             if (stoi(it->first) >= max)
                                 max = stoi(it->first);
                         }
-                        addGraphOpen = true;
+                        loadGraphOpen = false;
+                        addGraphOpen = false;
+                        backIconAddGraphOpen = true;
                         window.setView(pane3);
                     }
-                    if (loadGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
+                    if (loadGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y) && loadGraphOpen)
                     {
-                        graphs[to_string(max + 1)] = graph;
-                        for (auto i = 0; i < graphs.size(); i++)
+                        graphs[to_string(max+1)] = graph;
+                        for (auto i = 1; i < graphs.size(); i++)
                         {
                             borderS[i].setTexture(border);
                             borderS[i].setScale(0.55f, 0.6f);
-                            borderS[i].setPosition(6530, (125 * i) + 238);
+                            borderS[i].setPosition(6530, (125 * i) + 138);
                         }
-                        loadGraphOpen = true;
+                        loadGraphOpen = false;
+                        addGraphOpen = false;
+                        backIconLoadGraphOpen = true;
                         window.setView(pane4);
                         for (auto graphsIt = graphs.begin(); graphsIt != graphs.end(); graphsIt++)
                         {
-                            Text graphNameT(graphsIt->first, font, 24);
+                            Text graphNameT(to_string(stoi(graphsIt->first) - 1), font, 24);
                             graphNameT.setScale(2, 2);
                             graphNameT.setOutlineThickness(1.2);
                             graphName.push_back(graphNameT);
                         }
                     }
-                    for (int i = 0; i < graphs.size(); ++i)
+                    for (int i = 1; i < graphs.size(); ++i)
                     {
                         if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && loadGraphOpen)
                         {
                             loadGraphDataOpen = true;
                             window.setView(pane6);
-                            Graph selectedGraph = graphs[to_string(i + 1)];
+                            Graph selectedGraph = graphs[to_string(i+1)];
                             for (auto cityPair : selectedGraph.getCities()) {
                                 Text selectedGraphCityT(cityPair.second.getCityName(), font, 24);
                                 //selectedGraphCityT.setString(cityPair.second.getCityName());
@@ -368,26 +376,28 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (addCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         addCityOpen = true;
+                        loadGraphOpen = false;
 
                     }
                     if (deleteCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         deleteCityOpen = true;
-
+                        loadGraphOpen = false;
                     }
                     if (addEdgeText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         addEdgeOpen = true;
-
+                        loadGraphOpen = false;
                     }
                     if (deleteEdgeText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         deleteEdgeOpen = true;
-
+                        loadGraphOpen = false;
                     }
                     if (displayGraphText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         displayGraphOpen = true;
+                        loadGraphOpen = false;
                         window.setView(pane5);
                     }
                     if (closePopUp.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
@@ -490,14 +500,18 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         loadGraphDataOpen = false;
 
                     }
-                    if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && addGraphOpen) {
+                    if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && backIconAddGraphOpen) {
 
                         window.setView(pane2);
-                        addGraphOpen = false;
-                    }
-                    if (backIconLoadGraphS.getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && loadGraphOpen) {
-                        window.setView(pane2);
+                        backIconAddGraphOpen = false;
                         loadGraphOpen = true;
+                        addGraphOpen = true;
+                    }
+                    if (backIconLoadGraphS.getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && backIconLoadGraphOpen) {
+                        window.setView(pane2);
+                        backIconLoadGraphOpen = false;
+                        loadGraphOpen = true;
+                        addGraphOpen = true;
                         if (!loadGraphDataOpen)
                         {
                             graphName.clear();
@@ -510,6 +524,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (backIconLoadGraphDataS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y) && loadGraphDataOpen) {
                         window.setView(pane4);
                         loadGraphDataOpen = false;
+                        loadGraphOpen = true;
                         selectedGraphCity.clear();
                     }
                 }
@@ -675,13 +690,13 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     window.draw(deleteEdgeInfo[i]);
                 }
             }
-            for (auto i = 0; i < graphs.size(); i++)
+            for (auto i = 1; i < graphs.size(); i++)
             {
                 window.draw(borderS[i]);
             }
-            for (auto i = 0; i < graphName.size(); ++i)
+            for (auto i = 1; i < graphName.size(); ++i)
             {
-                graphName[i].setPosition(6700, 250 + (125 * i));
+                graphName[i].setPosition(6700, 145 + (125 * i));
                 window.draw(graphName[i]);
             }
             for (auto i = 0; i < selectedGraphCity.size(); ++i)
