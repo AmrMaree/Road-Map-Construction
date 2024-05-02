@@ -2,59 +2,26 @@
     {
         "cities": [
             {
-                "cityName": "cairo",
+                "cityName": "a",
                 "edges": []
             },
             {
-                "cityName": "alex",
+                "cityName": "b",
                 "edges": []
             },
             {
-                "cityName": "giza ",
-                "edges": []
-            },
-            {
-                "cityName": "kena",
-                "edges": []
-            },
-            {
-                "cityName": "fayoum",
+                "cityName": "c",
                 "edges": []
             }
         ],
         "graphName": "1"
     },
     {
-        "cities": [
-            {
-                "cityName": "cairo",
-                "edges": []
-            },
-            {
-                "cityName": "alex",
-                "edges": []
-            },
-            {
-                "cityName": "menya",
-                "edges": []
-            }
-        ],
+        "cities": [],
         "graphName": "2"
     },
     {
         "cities": [],
         "graphName": "3"
-    },
-    {
-        "cities": [],
-        "graphName": "4"
-    },
-    {
-        "cities": [],
-        "graphName": "5"
-    },
-    {
-        "cities": [],
-        "graphName": "6"
     }
 ]

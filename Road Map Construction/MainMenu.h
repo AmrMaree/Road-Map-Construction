@@ -43,7 +43,9 @@ private:
     Text EnterDestinationCityNameDeleteEdge;
     Text deleteEdgeInfo[2];
     Text selectGraphName;
+    Text CitiesIngraph;
     vector<Text>graphName;
+    vector<Text>selectedGraphCity;
 
     Font font;
 

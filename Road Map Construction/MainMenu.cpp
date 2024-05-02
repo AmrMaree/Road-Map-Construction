@@ -35,6 +35,12 @@ void MainMenu::load()
         bool deleteCityOpen = false;
         bool addEdgeOpen = false;
         bool deleteEdgeOpen = false;
+        bool loadGraphOpen = false;
+        bool addGraphOpen=false;
+        bool displayGraphOpen = false;
+        bool loadGraphDataOpen = false;
+        bool startOpen = true;
+
 
         Sprite selectionMenuS(selectionMenu);
         selectionMenuS.setPosition(1920, 0);
@@ -49,7 +55,7 @@ void MainMenu::load()
         displayGraphS.setPosition(7680, 0);
 
         Sprite graphDataS(loadGraphPage);
-        displayGraphS.setPosition(9600, 0);
+        graphDataS.setPosition(9600, 0);
 
         Sprite addGraphButtonS(addGraphButton);
         addGraphButtonS.setScale(0.35, 0.35);
@@ -94,6 +100,10 @@ void MainMenu::load()
         Sprite backIconDisplayGraphS(backIcon);
         backIconDisplayGraphS.setPosition(7820, 900);
         backIconDisplayGraphS.setScale(0.16, 0.16);
+
+        Sprite backIconLoadGraphDataS(backIcon);
+        backIconLoadGraphDataS.setPosition(9740, 900);
+        backIconLoadGraphDataS.setScale(0.16, 0.16);
 
         RectangleShape closePopUp(sf::Vector2f(40, 40));
         closePopUp.setPosition(popUpBoxS.getPosition().x + 512, popUpBoxS.getPosition().y + 19);
@@ -265,6 +275,14 @@ void MainMenu::load()
         selectGraphName.setOutlineThickness(1.5);
         selectGraphName.setPosition(6519, 100);
 
+        CitiesIngraph.setString("Cities in Graph");
+        CitiesIngraph.setFont(font);
+        CitiesIngraph.setScale(2, 2);
+        CitiesIngraph.setOutlineThickness(1.5);
+        CitiesIngraph.setPosition(9750, 80);
+
+        //Text selectedGraphCityT;
+
         int activeFieldAddCity = 0;
         int activeFieldDeleteCity = 0;
         int activeFieldAddEdge = 0;
@@ -294,15 +312,18 @@ void MainMenu::load()
                 {
                     if (event.mouseButton.button == Mouse::Left)
                     {
-                        if (Start.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                        if (Start.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) && startOpen) {
+                            startOpen = false;
                             window.setView(pane2);
                         }
                         if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
                         {
+                            addGraphOpen = true;
                             window.setView(pane3);
                         }
                         if (loadGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
                         {
+                            loadGraphOpen = true;
                             window.setView(pane4);
                             for (auto graphsIt = graphs.begin(); graphsIt != graphs.end(); graphsIt++)
                             {
@@ -314,17 +335,21 @@ void MainMenu::load()
                         }
                         for (int i = 0; i < graphs.size(); ++i)
                         {
-                            if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y))
+                            if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y)&&loadGraphOpen)
                             {
+                                loadGraphDataOpen = true;
                                 window.setView(pane6);
                                 Graph selectedGraph=graphs[to_string(i+1)];
                                 for (auto cityPair : selectedGraph.getCities()) {
-                                    cout << cityPair.second.getCityName() << " ";
+                                    Text selectedGraphCityT(cityPair.second.getCityName(), font, 24);
+                                    //selectedGraphCityT.setString(cityPair.second.getCityName());
+                                    selectedGraphCityT.setScale(2, 2);
+                                    selectedGraphCityT.setOutlineThickness(1.2);
+                                    selectedGraphCity.push_back(selectedGraphCityT);
                                 }
                             }
                         }
                         
-
                         if (addCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                         {
                             addCityOpen = true;
@@ -347,6 +372,7 @@ void MainMenu::load()
                         }
                         if (displayGraphText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                         {
+                            displayGraphOpen = true;
                             window.setView(pane5);
                         }
                         if (closePopUp.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
@@ -373,6 +399,7 @@ void MainMenu::load()
                             deleteCityOpen = false;
                             addEdgeOpen = false;
                             deleteEdgeOpen = false;
+                            loadGraphDataOpen = false;
 
                         }
                         if (saveInfoPopUpAddCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -383,6 +410,7 @@ void MainMenu::load()
                                 userInputCityName.clear();
                                 cityName.setString("");
                                 addCityOpen = false;
+                                loadGraphDataOpen = false;
                             }
                         }
                         if (saveInfoPopUpAddEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -396,6 +424,7 @@ void MainMenu::load()
                                     addEdgeInfo[i].setString("");
                                 }
                                 addEdgeOpen = false;
+                                loadGraphDataOpen = false;
                             }
                         }
                         if (saveInfoPopUpDeleteEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -408,6 +437,7 @@ void MainMenu::load()
                                     deleteEdgeInfo[i].setString("");
                                 }
                                 deleteEdgeOpen = false;
+                                loadGraphDataOpen = false;
                             }
                         }
                         if (saveInfoPopUpDeleteCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -417,6 +447,7 @@ void MainMenu::load()
                                 userInputCityNameDelete.clear();
                                 cityNameDelete.setString("");
                                 deleteCityOpen = false;
+                                loadGraphDataOpen = false;
                             }
                         }
                         if (cancelInfoPopUp.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
@@ -441,21 +472,36 @@ void MainMenu::load()
                             deleteCityOpen = false;
                             addEdgeOpen = false;
                             deleteEdgeOpen = false;
+                            loadGraphDataOpen = false;
+
                         }
-                        if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y)) {
+                        if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y)&&addGraphOpen)  {
+                            
                             window.setView(pane2);
+                            addGraphOpen = false;
                         }
-                        if (backIconLoadGraphS.getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y)) {
+                        if (backIconLoadGraphS.getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y)&&loadGraphOpen) {
                             window.setView(pane2);
+                            loadGraphOpen = true;
+                            if (!loadGraphDataOpen)
+                            {
+                                graphName.clear();
+                            }
                         }
-                        if (backIconDisplayGraphS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y)) {
+                        if (backIconDisplayGraphS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y)&&displayGraphOpen) {
                             window.setView(pane2);
+                            displayGraphOpen = false;
+                        }
+                        if (backIconLoadGraphDataS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y)&&loadGraphDataOpen) {
+                            window.setView(pane4);
+                            loadGraphDataOpen = false;
+                            selectedGraphCity.clear();
                         }
                     }
                 }
-                else if (event.type == sf::Event::MouseMoved)
+                else if (event.type == Event::MouseMoved)
                 {
-                    Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                    Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
                     if (addCityText.getGlobalBounds().contains(mousePos))
                     {
                         addCityText.setScale(1.7, 1.7);
@@ -567,6 +613,7 @@ void MainMenu::load()
                 window.draw(backIconAddGraphS);
                 window.draw(backIconLoadGraphS);
                 window.draw(backIconDisplayGraphS);
+                window.draw(backIconLoadGraphDataS);
                 window.draw(StartText);
                 window.draw(addGraphButtonText);
                 window.draw(loadGraphButtonText);
@@ -622,6 +669,12 @@ void MainMenu::load()
                     graphName[i].setPosition(6700, 250 + (125 * i));
                     window.draw(graphName[i]);
                 }
+                for (auto i = 0; i < selectedGraphCity.size(); ++i)
+                {
+                    selectedGraphCity[i].setPosition(9860, 220 + (100 * i));
+                    window.draw(selectedGraphCity[i]);
+                }
+                window.draw(CitiesIngraph);
                 window.display();
             }
         }
