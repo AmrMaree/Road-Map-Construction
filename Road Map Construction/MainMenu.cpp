@@ -40,6 +40,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool displayGraphOpen = false;
     bool loadGraphDataOpen = false;
     bool startOpen = true;
+    bool backIconLoadGraphOpen = false;
+    bool backIconAddGraphOpen = false;
 
 
     Sprite selectionMenuS(selectionMenu);
@@ -314,9 +316,11 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 {
                     if (Start.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y) && startOpen) {
                         startOpen = false;
+                        loadGraphOpen = true;
+                        addGraphOpen = true;
                         window.setView(pane2);                   
                     }
-                    if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
+                    if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y) && addGraphOpen)
                     {
                         graph.setGraphName(to_string(max + 1));
                         graphs[to_string(max + 1)] = graph;
@@ -331,18 +335,20 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (loadGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y))
                     {
-                        graphs[to_string(max + 1)] = graph;
+                        graphs[to_string(max+1)] = graph;
                         for (auto i = 1; i < graphs.size(); i++)
                         {
                             borderS[i].setTexture(border);
                             borderS[i].setScale(0.55f, 0.6f);
-                            borderS[i].setPosition(6530, (125 * i) + 128);
+                            borderS[i].setPosition(6530, (125 * i) + 138);
                         }
-                        loadGraphOpen = true;
+                        loadGraphOpen = false;
+                        addGraphOpen = false;
+                        backIconLoadGraphOpen = true;
                         window.setView(pane4);
                         for (auto graphsIt = graphs.begin(); graphsIt != graphs.end(); graphsIt++)
                         {
-                            Text graphNameT(graphsIt->first, font, 24);
+                            Text graphNameT(to_string(stoi(graphsIt->first) - 1), font, 24);
                             graphNameT.setScale(2, 2);
                             graphNameT.setOutlineThickness(1.2);
                             graphName.push_back(graphNameT);
@@ -354,7 +360,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         {
                             loadGraphDataOpen = true;
                             window.setView(pane6);
-                            Graph selectedGraph = graphs[to_string(i + 1)];
+                            Graph selectedGraph = graphs[to_string(i+1)];
                             for (auto cityPair : selectedGraph.getCities()) {
                                 Text selectedGraphCityT(cityPair.second.getCityName(), font, 24);
                                 //selectedGraphCityT.setString(cityPair.second.getCityName());
@@ -369,6 +375,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     {
                         addCityOpen = true;
                         loadGraphOpen = false;
+
                     }
                     if (deleteCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
@@ -388,6 +395,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (displayGraphText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         displayGraphOpen = true;
+                        loadGraphOpen = false;
                         window.setView(pane5);
                         loadGraphOpen = false;
                     }
@@ -491,14 +499,18 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         loadGraphDataOpen = false;
 
                     }
-                    if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && addGraphOpen) {
+                    if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && backIconAddGraphOpen) {
 
                         window.setView(pane2);
-                        addGraphOpen = false;
+                        backIconAddGraphOpen = false;
+                        loadGraphOpen = true;
+                        addGraphOpen = true;
                     }
-                    if (backIconLoadGraphS.getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && loadGraphOpen) {
+                    if (backIconLoadGraphS.getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && backIconLoadGraphOpen) {
                         window.setView(pane2);
-                        loadGraphOpen = false;
+                        backIconLoadGraphOpen = false;
+                        loadGraphOpen = true;
+                        addGraphOpen = true;
                         if (!loadGraphDataOpen)
                         {
                             graphName.clear();

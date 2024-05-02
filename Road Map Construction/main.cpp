@@ -125,7 +125,6 @@ int main() {
     Graph graph;
     mainMenu.load();
     unordered_map<string, Graph> graphs = loadGraph("myGraph.json");
-
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -199,6 +198,7 @@ int main() {
         if (stoi(it->first) > max)
             max = stoi(it->first);
     }
+
     if(graphs[to_string(max)].getGraphName() != graph.getGraphName())
         graphs[to_string(max+1)] = graph;
     saveGraph(graphs, "myGraph.json");

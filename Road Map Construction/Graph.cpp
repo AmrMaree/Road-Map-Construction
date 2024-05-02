@@ -245,48 +245,48 @@ void Graph::BFS(string cityName) {
 }
 
 void Graph :: Prim(string startCity) {
-    //if (!CityExist(startCity)) {
-    //    cout << "Starting city not found.\n";
-    //    return;
-    //}
+    if (!CityExist(startCity)) {
+        cout << "Starting city not found.\n";
+        return;
+    }
 
-    //unordered_map<string, bool> visited;
-    //priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
-    //vector<pair<string, string>> MST; // Store MST edges
+    unordered_map<string, bool> visited;
+    priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+    vector<pair<string, string>> MST; // Store MST edges
 
-    //// Mark all cities as unvisited
-    //for (auto& pair : cities) {
-    //    visited[pair.first] = false;
-    //}
+    // Mark all cities as unvisited
+    for (auto pair : cities) {
+        visited[pair.first] = false;
+    }
 
-    //// Start with the given city
-    //pq.push({ 0, startCity });
+    // Start with the given city
+    pq.push({ 0, startCity });
 
-    //while (!pq.empty()) {
-    //    string currentCity = pq.top().second;
-    //    int currentWeight = pq.top().first;
-    //    pq.pop();
+    while (!pq.empty()) {
+        string currentCity = pq.top().second;
+        int currentWeight = pq.top().first;
+        pq.pop();
 
-    //    if (!visited[currentCity]) {
-    //        visited[currentCity] = true;
+        if (!visited[currentCity]) {
+            visited[currentCity] = true;
 
-    //        // Add edge to MST
-    //        if (currentCity != startCity) {
-    //            MST.push_back({ currentCity, currentWeight });
-    //        }
+            // Add edge to MST
+            if (currentCity != startCity) {
+                //MST.push_back({ currentCity, currentWeight });
+            }
 
-    //        // Visit neighbors and update priority queue
-    //        for (Edge edge : cities[currentCity].getEdgeList()) {
-    //            if (!visited[edge.getDestinationCity()]) {
-    //                pq.push({ edge.getWeight(), edge.getDestinationCity() });
-    //            }
-    //        }
-    //    }
-    //}
+            // Visit neighbors and update priority queue
+            for (Edge edge : cities[currentCity].getEdgeList()) {
+                if (!visited[edge.getDestinationCity()]) {
+                    pq.push({ edge.getWeight(), edge.getDestinationCity() });
+                }
+            }
+        }
+    }
 
-    //// Print MST edges
-    //cout << "Minimum Spanning Tree (MST) Edges:\n";
-    //for (auto edge : MST) {
-    //    cout << edge.first << " - " << edge.second << endl;
-    //}
+    // Print MST edges
+    cout << "Minimum Spanning Tree (MST) Edges:\n";
+    for (auto edge : MST) {
+        cout << edge.first << " - " << edge.second << endl;
+    }
 }
