@@ -46,7 +46,7 @@ void Graph::deleteCity(string cityName)
     for (Edge edge : edgeList)
     {
         reqDest = edge.getDestinationCity();
-        deleteEdge(cityName, reqDest);
+        deleteEdge(reqDest, cityName);
     }
     cities.erase(cityName);
     cout << cityName << "city is deleted successfully" << endl;
@@ -89,10 +89,11 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
             return;
         }
     }
+    */
     if (EdgeExist(sourceCity, destinationCity)) {
-        cout << "Edge from '" << sourceCity << "' to '" << destinationCity << "' already exists.\n";
+        //cout << "edge from '" << sourcecity << "' to '" << destinationcity << "' already exists.\n";
         return;
-    }*/
+    }
 
     edgeListSource = cities[sourceCity].getEdgeList();
     edgeListSource.push_back(Edge(sourceCity, destinationCity, weight));
@@ -222,7 +223,6 @@ void Graph ::DFS(string startCity) {
         }
     }
 }
-
 
 void Graph::BFS(string cityName) {
     unordered_map<string, bool> visited;
