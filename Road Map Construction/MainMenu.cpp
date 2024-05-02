@@ -42,6 +42,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool startOpen = true;
     bool backIconLoadGraphOpen = false;
     bool backIconAddGraphOpen = false;
+    bool backIconLoadGraphDataOpen = false;
 
 
     Sprite selectionMenuS(selectionMenu);
@@ -323,7 +324,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y) && addGraphOpen)
                     {
                         graph.setGraphName(to_string(max + 1));
-                        graphs[to_string(max + 1)] = graph;
+                        //graphs[to_string(max + 1)] = graph;
                         graph.clearGraph();
                         for (auto it = graphs.begin(); it != graphs.end(); it++)
                         {
@@ -347,6 +348,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         loadGraphOpen = false;
                         addGraphOpen = false;
                         backIconLoadGraphOpen = true;
+                        loadGraphDataOpen = true;
                         window.setView(pane4);
                         for (auto graphsIt = graphs.begin(); graphsIt != graphs.end(); graphsIt++)
                         {
@@ -358,9 +360,13 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     for (int i = 1; i < graphs.size(); ++i)
                     {
-                        if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && loadGraphOpen)
+                        if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && loadGraphDataOpen)
                         {
-                            loadGraphDataOpen = true;
+                            loadGraphDataOpen = false;
+                            loadGraphOpen = false;
+                            addGraphOpen = false;
+                            backIconLoadGraphDataOpen = true;
+                            backIconLoadGraphOpen = false;
                             window.setView(pane6);
                             Graph selectedGraph = graphs[to_string(i+1)];
                             for (auto cityPair : selectedGraph.getCities()) {
@@ -435,7 +441,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             userInputCityName.clear();
                             cityName.setString("");
                             addCityOpen = false;
-                            loadGraphDataOpen = false;
+                            //loadGraphDataOpen = false;
                         }
                     }
                     if (saveInfoPopUpAddEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -449,7 +455,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                                 addEdgeInfo[i].setString("");
                             }
                             addEdgeOpen = false;
-                            loadGraphDataOpen = false;
+                            //loadGraphDataOpen = false;
                         }
                     }
                     if (saveInfoPopUpDeleteEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -462,7 +468,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                                 deleteEdgeInfo[i].setString("");
                             }
                             deleteEdgeOpen = false;
-                            loadGraphDataOpen = false;
+                            //loadGraphDataOpen = false;
                         }
                     }
                     if (saveInfoPopUpDeleteCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -472,7 +478,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             userInputCityNameDelete.clear();
                             cityNameDelete.setString("");
                             deleteCityOpen = false;
-                            loadGraphDataOpen = false;
+                            //loadGraphDataOpen = false;
                         }
                     }
                     if (cancelInfoPopUp.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
@@ -512,19 +518,21 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         backIconLoadGraphOpen = false;
                         loadGraphOpen = true;
                         addGraphOpen = true;
-                        if (!loadGraphDataOpen)
-                        {
-                            graphName.clear();
-                        }
+                        loadGraphDataOpen = false;
+                        graphName.clear();
                     }
                     if (backIconDisplayGraphS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && displayGraphOpen) {
                         window.setView(pane2);
                         displayGraphOpen = false;
                     }
-                    if (backIconLoadGraphDataS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y) && loadGraphDataOpen) {
+                    if (backIconLoadGraphDataS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y) && backIconLoadGraphDataOpen) {
                         window.setView(pane4);
-                        loadGraphDataOpen = false;
-                        loadGraphOpen = true;
+                        loadGraphDataOpen = true;
+                        loadGraphOpen = false;
+                        addGraphOpen = false;
+                        backIconLoadGraphDataOpen = false;
+                        backIconLoadGraphOpen = true;
+
                         selectedGraphCity.clear();
                     }
                 }
