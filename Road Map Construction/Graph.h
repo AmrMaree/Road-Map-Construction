@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include<List>
+#include<queue>
+#include<stack>
 #include<vector>
 #include<unordered_map>
 #include "City.h"
@@ -14,7 +16,7 @@ private:
 		string graphName;
 public:
 		string getGraphName();
-		void setGraphName();
+		void setGraphName(string graphName);
 		void addCity(City newCity);
 		City getCity(string cityName);
 		bool CityExist(string cityName);
@@ -23,5 +25,9 @@ public:
 		bool EdgeExist(string sourceCity, string destinationCity);
 		void deleteEdge(string sourceCity, string destinationCity);
 		unordered_map<string, City> getCities();
+		void BFS(string cityName);
+		void DFS(string cityName);
+		void Prim(string startCity);
+		void clearGraph();
 };
 

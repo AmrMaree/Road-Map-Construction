@@ -1,4 +1,14 @@
-    #include "Graph.h"
+#include "Graph.h"
+
+string Graph::getGraphName()
+{
+    return graphName;
+}
+
+void Graph::setGraphName(string graphName)
+{
+    this->graphName = graphName;
+}
 
 void Graph::addCity(City newCity)
 {
@@ -78,9 +88,8 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
         {
             return;
         }
-    }*/
-
-    /*if (EdgeExist(sourceCity, destinationCity)) {
+    }
+    if (EdgeExist(sourceCity, destinationCity)) {
         cout << "Edge from '" << sourceCity << "' to '" << destinationCity << "' already exists.\n";
         return;
     }*/
@@ -93,7 +102,7 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
     edgeListDestination.push_back(Edge(destinationCity, sourceCity, weight));
     cities[destinationCity].setEdgeList(edgeListDestination);
 
-    cout << "Edge successfully added from '" << sourceCity << "' to '" << destinationCity << "' with weight " << weight << ".\n";
+    //cout << "Edge successfully added from '" << sourceCity << "' to '" << destinationCity << "' with weight " << weight << ".\n";
 }
 
 bool Graph::EdgeExist(string sourceCity, string destinationCity)
@@ -186,3 +195,98 @@ unordered_map<string, City> Graph::getCities()
     return cities;
 }
 
+void Graph::clearGraph() {
+    cities.clear();
+}
+
+void Graph ::DFS(string startCity) {
+    if (!CityExist(startCity)) {
+        cout << "Starting city not found.\n";
+        return;
+    }
+
+    unordered_map<string, bool> visited;
+    stack<City> stack;
+    stack.push(getCity(startCity));
+    while (!stack.empty()) {
+        City currentCity = stack.top();
+        stack.pop();
+        if (!visited[currentCity.getCityName()]) {
+            cout << currentCity.getCityName() << " ";
+            visited[currentCity.getCityName()] = true;
+            for (Edge edge : currentCity.getEdgeList()) {
+                if (!visited[edge.getDestinationCity()]) {
+                    stack.push(getCity(edge.getDestinationCity()));
+                }
+            }
+        }
+    }
+}
+
+
+void Graph::BFS(string cityName) {
+    unordered_map<string, bool> visited;
+    queue<City> queue;
+    if (cities.find(cityName) != cities.end()) {
+        queue.push(getCity(cityName));
+        visited[cityName] = true;
+        while (!queue.empty()) {
+            City current = queue.front();
+            queue.pop();
+            cout << current.getCityName() << ' ';
+            for (Edge edge : current.getEdgeList()) {
+                if (!visited[edge.getDestinationCity()]) {
+                    queue.push(getCity(edge.getDestinationCity()));
+                    visited[edge.getDestinationCity()] = true;
+                }
+            }
+        }
+    }
+}
+
+void Graph :: Prim(string startCity) {
+    //if (!CityExist(startCity)) {
+    //    cout << "Starting city not found.\n";
+    //    return;
+    //}
+
+    //unordered_map<string, bool> visited;
+    //priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+    //vector<pair<string, string>> MST; // Store MST edges
+
+    //// Mark all cities as unvisited
+    //for (auto& pair : cities) {
+    //    visited[pair.first] = false;
+    //}
+
+    //// Start with the given city
+    //pq.push({ 0, startCity });
+
+    //while (!pq.empty()) {
+    //    string currentCity = pq.top().second;
+    //    int currentWeight = pq.top().first;
+    //    pq.pop();
+
+    //    if (!visited[currentCity]) {
+    //        visited[currentCity] = true;
+
+    //        // Add edge to MST
+    //        if (currentCity != startCity) {
+    //            MST.push_back({ currentCity, currentWeight });
+    //        }
+
+    //        // Visit neighbors and update priority queue
+    //        for (Edge edge : cities[currentCity].getEdgeList()) {
+    //            if (!visited[edge.getDestinationCity()]) {
+    //                pq.push({ edge.getWeight(), edge.getDestinationCity() });
+    //            }
+    //        }
+    //    }
+    //}
+
+    //// Print MST edges
+    //cout << "Minimum Spanning Tree (MST) Edges:\n";
+    //for (auto edge : MST) {
+    //    cout << edge.first << " - " << edge.second << endl;
+    //}
+}
