@@ -6,73 +6,18 @@
     {
         "cities": [
             {
-                "cityName": "aa",
+                "cityName": "cairo",
                 "edges": []
             },
             {
-                "cityName": "bb",
+                "cityName": "domyat",
                 "edges": []
             },
             {
-                "cityName": "dd",
-                "edges": []
-            },
-            {
-                "cityName": "cc",
+                "cityName": "alex",
                 "edges": []
             }
         ],
         "graphName": "2"
-    },
-    {
-        "cities": [
-            {
-                "cityName": "aa",
-                "edges": [
-                    {
-                        "destinationCity": "bb",
-                        "sourceCity": "aa",
-                        "weight": 1
-                    }
-                ]
-            },
-            {
-                "cityName": "bb",
-                "edges": [
-                    {
-                        "destinationCity": "aa",
-                        "sourceCity": "bb",
-                        "weight": 1
-                    }
-                ]
-            }
-        ],
-        "graphName": "3"
-    },
-    {
-        "cities": [
-            {
-                "cityName": "aaa",
-                "edges": []
-            },
-            {
-                "cityName": "bbb",
-                "edges": []
-            }
-        ],
-        "graphName": "4"
-    },
-    {
-        "cities": [
-            {
-                "cityName": "aaa",
-                "edges": []
-            },
-            {
-                "cityName": "bbb",
-                "edges": []
-            }
-        ],
-        "graphName": "5"
     }
 ]

@@ -44,6 +44,11 @@ private:
     Text deleteEdgeInfo[2];
     Text selectGraphName;
     Text CitiesIngraph;
+    Text ProceedToEditGraph;
+    Text BFS;
+    Text DFS;
+    Text PRIM;
+    Text Dijiktra;
     vector<Text>graphName;
     vector<Text>selectedGraphCity;
 
