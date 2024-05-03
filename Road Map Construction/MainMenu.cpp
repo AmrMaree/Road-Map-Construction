@@ -25,7 +25,7 @@ void MainMenu::load()
     border.loadFromFile("Textures/border.png");
 }
 
-void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string, Graph> &graphs)
+void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string, Graph>& graphs)
 {
     load();
     Sprite homeS(home);
@@ -43,6 +43,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool backIconLoadGraphOpen = false;
     bool backIconAddGraphOpen = false;
     bool backIconLoadGraphDataOpen = false;
+    bool ProceedToEditGraphOpen = false;
 
 
     Sprite selectionMenuS(selectionMenu);
@@ -118,6 +119,22 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     //    borderS[i].setScale(0.55f, 0.6f);
     //    borderS[i].setPosition(6530, (125 * i) + 238);
     //}
+
+    Sprite ProceedToEditGraphS(addGraphButton);
+    ProceedToEditGraphS.setScale(0.42, 0.42);
+    ProceedToEditGraphS.setPosition(10400,588);
+
+    Sprite BFSs(addGraphButton);
+    BFSs.setScale(0.42, 0.42);
+    BFSs.setPosition(7980, 688);
+
+    Sprite DFSs(addGraphButton);
+    DFSs.setScale(0.42, 0.42);
+    DFSs.setPosition(8480, 688);
+
+    Sprite PRIMs(addGraphButton);
+    PRIMs.setScale(0.42, 0.42);
+    PRIMs.setPosition(8980, 688);
 
     addGraphButtonText.setString("Add Graph");
     addGraphButtonText.setFont(font);
@@ -284,6 +301,30 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     CitiesIngraph.setOutlineThickness(1.5);
     CitiesIngraph.setPosition(9750, 80);
 
+    ProceedToEditGraph.setString("Edit Graph");
+    ProceedToEditGraph.setFont(font);
+    ProceedToEditGraph.setScale(1.5, 1.5);
+    ProceedToEditGraph.setOutlineThickness(1.2);
+    ProceedToEditGraph.setPosition(10450, 630);
+
+    BFS.setString("BFS");
+    BFS.setFont(font);
+    BFS.setScale(1.5, 1.5);
+    BFS.setOutlineThickness(1.2);
+    BFS.setPosition(8085, 730);
+
+    DFS.setString("DFS");
+    DFS.setFont(font);
+    DFS.setScale(1.5, 1.5);
+    DFS.setOutlineThickness(1.2);
+    DFS.setPosition(8585, 730);
+
+    PRIM.setString("Prim's");
+    PRIM.setFont(font);
+    PRIM.setScale(1.5, 1.5);
+    PRIM.setOutlineThickness(1.2);
+    PRIM.setPosition(9076, 730);
+
     //Text selectedGraphCityT;
 
     int activeFieldAddCity = 0;
@@ -319,7 +360,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         startOpen = false;
                         loadGraphOpen = true;
                         addGraphOpen = true;
-                        window.setView(pane2);                   
+                        window.setView(pane2);
                     }
                     if (addGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y) && addGraphOpen)
                     {
@@ -338,7 +379,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (loadGraphButtonS.getGlobalBounds().contains(event.mouseButton.x + 1920, event.mouseButton.y) && loadGraphOpen)
                     {
-                        graphs[to_string(max+1)] = graph;
+                        graphs[to_string(max + 1)] = graph;
                         for (auto i = 1; i < graphs.size(); i++)
                         {
                             borderS[i].setTexture(border);
@@ -349,6 +390,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         addGraphOpen = false;
                         backIconLoadGraphOpen = true;
                         loadGraphDataOpen = true;
+                        //ProceedToEditGraphOpen = true;
                         window.setView(pane4);
                         for (auto graphsIt = graphs.begin(); graphsIt != graphs.end(); graphsIt++)
                         {
@@ -358,17 +400,23 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             graphName.push_back(graphNameT);
                         }
                     }
+                    if (ProceedToEditGraphS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y)&& ProceedToEditGraphOpen)
+                    {
+                        ProceedToEditGraphOpen = false;
+                        window.setView(pane3);
+                    }
                     for (int i = 1; i < graphs.size(); ++i)
                     {
                         if (borderS[i].getGlobalBounds().contains(event.mouseButton.x + 5760, event.mouseButton.y) && loadGraphDataOpen)
                         {
+                            ProceedToEditGraphOpen = true;
                             loadGraphDataOpen = false;
                             loadGraphOpen = false;
                             addGraphOpen = false;
                             backIconLoadGraphDataOpen = true;
                             backIconLoadGraphOpen = false;
                             window.setView(pane6);
-                            Graph selectedGraph = graphs[to_string(i+1)];
+                            Graph selectedGraph = graphs[to_string(i + 1)];
                             for (auto cityPair : selectedGraph.getCities()) {
                                 Text selectedGraphCityT(cityPair.second.getCityName(), font, 24);
                                 //selectedGraphCityT.setString(cityPair.second.getCityName());
@@ -713,6 +761,14 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 window.draw(selectedGraphCity[i]);
             }
             window.draw(CitiesIngraph);
+            window.draw(ProceedToEditGraphS);
+            window.draw(ProceedToEditGraph);
+            window.draw(DFSs);
+            window.draw(BFSs);
+            window.draw(PRIMs);
+            window.draw(DFS); 
+            window.draw(BFS); 
+            window.draw(PRIM);
             window.display();
         }
     }

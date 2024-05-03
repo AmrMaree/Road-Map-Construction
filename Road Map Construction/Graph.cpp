@@ -12,12 +12,12 @@ void Graph::setGraphName(string graphName)
 
 void Graph::addCity(City newCity)
 {
-	if (cities.find(newCity.getCityName()) == cities.end()) {
-		cities[newCity.getCityName()] = newCity;
-	}
-	else {
-		cout << "City already exists.\n";
-	}
+    if (cities.find(newCity.getCityName()) == cities.end()) {
+        cities[newCity.getCityName()] = newCity;
+    }
+    else {
+        cout << "City already exists.\n";
+    }
 }
 
 City Graph::getCity(string cityName)
@@ -58,38 +58,38 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
     vector <Edge> edgeListSource;
     vector <Edge> edgeListDestination;
 
-   /* if (!CityExist(sourceCity))
-    {
-        cout << "Source city '" << sourceCity << "' does not exist.\n";
-        cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
-        string answer;
-        cin >> answer;
-        if (answer == "yes" || answer == "YES")
-        {
-            addCity(City(sourceCity));
-        }
-        else
-        {
-            return;
-        }
+    /* if (!CityExist(sourceCity))
+     {
+         cout << "Source city '" << sourceCity << "' does not exist.\n";
+         cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
+         string answer;
+         cin >> answer;
+         if (answer == "yes" || answer == "YES")
+         {
+             addCity(City(sourceCity));
+         }
+         else
+         {
+             return;
+         }
 
-    }
+     }
 
-    if (!CityExist(destinationCity)) {
-        cout << "Destination city '" << destinationCity << "' does not exist.\n";
-        cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
-        string answer;
-        cin >> answer;
-        if (answer == "yes" || answer == "YES")
-        {
-            addCity(City(destinationCity));
-        }
-        else
-        {
-            return;
-        }
-    }
-    */
+     if (!CityExist(destinationCity)) {
+         cout << "Destination city '" << destinationCity << "' does not exist.\n";
+         cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
+         string answer;
+         cin >> answer;
+         if (answer == "yes" || answer == "YES")
+         {
+             addCity(City(destinationCity));
+         }
+         else
+         {
+             return;
+         }
+     }
+     */
     if (EdgeExist(sourceCity, destinationCity)) {
         //cout << "edge from '" << sourcecity << "' to '" << destinationcity << "' already exists.\n";
         return;
@@ -200,7 +200,7 @@ void Graph::clearGraph() {
     cities.clear();
 }
 
-void Graph ::DFS(string startCity) {
+void Graph::DFS(string startCity) {
     if (!CityExist(startCity)) {
         cout << "Starting city not found.\n";
         return;
@@ -244,7 +244,7 @@ void Graph::BFS(string cityName) {
     }
 }
 
-void Graph :: Prim(string startCity) {
+void Graph::Prim(string startCity) {
     if (!CityExist(startCity)) {
         cout << "Starting city not found.\n";
         return;
