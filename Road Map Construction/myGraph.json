@@ -23,14 +23,5 @@
             }
         ],
         "graphName": "2"
-    },
-    {
-        "cities": [
-            {
-                "cityName": "amr",
-                "edges": []
-            }
-        ],
-        "graphName": "3"
     }
 ]

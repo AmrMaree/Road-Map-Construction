@@ -411,19 +411,16 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     {
                         graph.DFS("A");
                         DFSOpen = false;
-                        //window.setView(pane3);
                     }
                     if (BFSs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && BFSOpen)
                     {
                         graph.BFS("A");
                         BFSOpen = false;
-                        //window.setView(pane3);
                     }
                     if (PRIMs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && PrimOpen)
                     {
                         graph.Prim("A");
                         PrimOpen = false;
-                        //window.setView(pane3);
                     }
                     for (int i = 1; i < graphs.size(); ++i)
                     {
@@ -509,7 +506,6 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpAddCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        cout << "i have been clicked" << endl;
                         if (!userInputCityName.empty()) {
                             graph.addCity(City(userInputCityName));
                             cout << graph.getCities()[userInputCityName].getCityName() << endl;
@@ -579,7 +575,6 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && backIconAddGraphOpen) {
                         graphs[to_string(max + 1)] = graph;
-                        cout << "i have been clicked" << endl;
                         window.setView(pane2);
                         backIconAddGraphOpen = false;
                         loadGraphOpen = true;
@@ -602,7 +597,6 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (backIconLoadGraphDataS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y) && backIconLoadGraphDataOpen) {
                         graphs[graph.getGraphName()] = graph;
-                        cout << "zobry" << endl;
                         window.setView(pane4);
                         loadGraphDataOpen = true;
                         loadGraphOpen = false;
