@@ -222,6 +222,7 @@ void Graph::DFS(string startCity) {
             }
         }
     }
+    cout << endl;
 }
 
 void Graph::BFS(string cityName) {
@@ -241,6 +242,7 @@ void Graph::BFS(string cityName) {
                 }
             }
         }
+        cout << endl;
     }
 }
 
@@ -272,7 +274,7 @@ void Graph::Prim(string startCity) {
 
             // Add edge to MST
             if (currentCity != startCity) {
-                //MST.push_back({ currentCity, currentWeight });
+                MST.push_back({ currentCity, currentWeight });
             }
 
             // Visit neighbors and update priority queue
