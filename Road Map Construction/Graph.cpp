@@ -252,7 +252,7 @@ void Graph :: Prim(string startCity) {
 
     unordered_map<string, bool> visited;
     priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
-    vector<pair<string, int>> MST; // Store MST edges
+    vector<pair<string, string>> MST; // Store MST edges
 
     // Mark all cities as unvisited
     for (auto pair : cities) {
