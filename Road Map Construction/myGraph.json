@@ -14,10 +14,23 @@
                 "edges": []
             },
             {
-                "cityName": "alex",
+                "cityName": "amr",
+                "edges": []
+            },
+            {
+                "cityName": "menofia",
                 "edges": []
             }
         ],
         "graphName": "2"
+    },
+    {
+        "cities": [
+            {
+                "cityName": "amr",
+                "edges": []
+            }
+        ],
+        "graphName": "3"
     }
 ]
