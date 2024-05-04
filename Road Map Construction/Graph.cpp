@@ -200,7 +200,7 @@ bool Graph :: isClose(float x1, float y1, float x2, float y2, float minDistance)
 
 void Graph::displayGraph()
 {
-    sf::RenderWindow window(sf::VideoMode(900, 700), "Graph Drawing");
+    RenderWindow window(sf::VideoMode(900, 700), "Graph Drawing");
     window.setFramerateLimit(60);
 
     Font font;
