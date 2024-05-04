@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
+    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
+    <LibraryPath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib;$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
+    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
+    <LibraryPath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib;$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
+    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
+    <LibraryPath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib;$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
+    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
+    <LibraryPath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib;$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Amr\json-develop\include;G:\json-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Amr\json-develop\include;G:\jsoncpp-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Amr\json-develop\include;G:\json-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Amr\json-develop\include;G:\jsoncpp-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>G:\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

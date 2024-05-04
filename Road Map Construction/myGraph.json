@@ -6,7 +6,7 @@
     {
         "cities": [
             {
-                "cityName": "cairo",
+                "cityName": "amr",
                 "edges": []
             },
             {
@@ -14,7 +14,7 @@
                 "edges": []
             },
             {
-                "cityName": "amr",
+                "cityName": "cairo",
                 "edges": []
             },
             {

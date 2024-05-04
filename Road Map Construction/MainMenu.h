@@ -49,6 +49,16 @@ private:
     Text DFS;
     Text PRIM;
     Text Dijiktra;
+    Text EnterCityNameBFS;
+    Text EnterCityNameDFS;
+    Text EnterCityNamePRIM;
+    Text saveInfoPopUpBFS;
+    Text saveInfoPopUpDFS;
+    Text saveInfoPopUpPRIM;
+    Text cancelInfoPopUpAlgo;
+    Text cityNameBFS;
+    Text cityNameDFS;
+    Text cityNamePRIM;
     vector<Text>graphName;
     vector<Text>selectedGraphCity;
 

@@ -191,6 +191,56 @@ void Graph::deleteEdge(string sourceCity, string destinationCity)
     }
 }
 
+void Graph::displayGraph()
+{
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Graph Drawing");
+    window.setFramerateLimit(60);
+    Font font;
+    font.loadFromFile("Fonts/font.otf");
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear(sf::Color::White);
+
+        // Draw cities
+        for (auto& pair : cities) {
+            City& city = pair.second;
+            sf::CircleShape circle(10.f);
+            circle.setFillColor(sf::Color::Blue);
+            circle.setPosition(city.getX(), city.getY());
+            window.draw(circle);
+
+            // Draw city name
+            sf::Text text;
+            text.setString(city.getCityName());
+            text.setFont(font);
+            text.setCharacterSize(12);
+            text.setFillColor(sf::Color::Black);
+            text.setPosition(city.getX() + 15, city.getY() - 5);
+            window.draw(text);
+
+            // Draw edges
+            for (Edge edge : city.getEdgeList()) {
+                City destinationCity = cities[edge.getDestinationCity()];
+                sf::VertexArray line(sf::Lines, 2);
+                line[0].position = sf::Vector2f(city.getX(), city.getY());
+                line[1].position = sf::Vector2f(destinationCity.getX(), destinationCity.getY());
+                line[0].color = sf::Color::Black;
+                line[1].color = sf::Color::Black;
+                window.draw(line);
+            }
+        }
+
+        window.display();
+    }
+}
+
+
 unordered_map<string, City> Graph::getCities()
 {
     return cities;
