@@ -76,14 +76,15 @@ unordered_map<string, Graph> loadGraph(string filename) {
         file >> data;
 
         for (auto graphData : data) {
-            std::string graphName = graphData["graphName"];
+            string graphName = graphData["graphName"];
             Graph graph;
 
             for (auto cityData : graphData["cities"]) {
                 string cityName = cityData["cityName"];
-                if (!graph.CityExist(cityName)) {
+                /*if (!graph.CityExist(cityName)) {
                     graph.addCity(City(cityName));
-                }
+                }*/
+                graph.setCities(cityName);
                 for (auto edge : cityData["edges"]) {
                     string destination = edge["destinationCity"];
                     int weight = edge["weight"];
