@@ -47,6 +47,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool DFSOpen = false;
     bool BFSOpen = false;
     bool PrimOpen = false;
+    bool addCityDFSOpen = false;
+    bool addCityBFSOpen = false;
+    bool addCityPrimOpen = false;
 
 
     Sprite selectionMenuS(selectionMenu);
@@ -392,8 +395,6 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     cancelInfoPopUpAlgo.setOutlineThickness(1.5);
     cancelInfoPopUpAlgo.setPosition(popUpBoxAlgoS.getPosition().x + 108, popUpBoxAlgoS.getPosition().y + 300);
 
-
-
     //Text selectedGraphCityT;
 
     int activeFieldAddCity = 0;
@@ -471,22 +472,29 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (ProceedToEditGraphS.getGlobalBounds().contains(event.mouseButton.x + 9600, event.mouseButton.y)&& ProceedToEditGraphOpen)
                     {
-                        //graph.Prim("A");
                         ProceedToEditGraphOpen = false;
-                        DFSOpen = true;
                         window.setView(pane3);
                     }
                     if (DFSs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && DFSOpen)
                     {
                         DFSOpen = false;
+                        BFSOpen = false;
+                        PrimOpen = false;
+                        addCityDFSOpen = true;
                     }
                     if (BFSs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && BFSOpen)
                     {
+                        DFSOpen = false;
                         BFSOpen = false;
+                        PrimOpen = false;
+                        addCityBFSOpen = true;
                     }
                     if (PRIMs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && PrimOpen)
                     {
+                        DFSOpen = false;
+                        BFSOpen = false;
                         PrimOpen = false;
+                        addCityPrimOpen = true;
                     }
                     for (int i = 1; i < graphs.size(); ++i)
                     {
@@ -498,11 +506,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             addGraphOpen = false;
                             backIconLoadGraphDataOpen = true;
                             backIconLoadGraphOpen = false;
-                            DFSOpen = true;
-                            BFSOpen = true;
-                            PrimOpen = true;
                             window.setView(pane6);
-
                             Graph selectedGraph = graphs[to_string(i + 1)];
                             graph = selectedGraph;
                             graph.setGraphName(to_string(i + 1));
@@ -540,6 +544,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (displayGraphText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
                         graph.displayGraph();
+                        DFSOpen = true;
+                        BFSOpen = true;
+                        PrimOpen = true;
                         displayGraphOpen = true;
                         loadGraphOpen = false;
                         window.setView(pane5);
@@ -583,13 +590,31 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         PrimOpen = true;
 
                     }
+                    if (closePopUpAlgo.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))
+                    {
+                        userInputCityNameBFS.clear();
+                        cityNameBFS.setString("");
+                        userInputCityNameDFS.clear();
+                        cityNameDFS.setString("");
+                        userInputCityNamePRIM.clear();
+                        cityNamePRIM.setString("");
+                        BFSOpen = true;
+                        DFSOpen = true;
+                        PrimOpen = true;
+                        addCityBFSOpen = false;
+                        addCityDFSOpen = false;
+                        addCityPrimOpen = false;
+                    }
                     if (saveInfoPopUpBFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityNameBFS.empty()) {
                             graph.DFS(userInputCityNameBFS);
                             userInputCityNameBFS.clear();
                             cityNameBFS.setString("");
-                           //addCityOpen = false;
+                            addCityBFSOpen = false;
+                            BFSOpen = true;
+                            DFSOpen = true;
+                            PrimOpen = true;
                         }
                     }
                     if (saveInfoPopUpDFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
@@ -598,7 +623,10 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             graph.BFS(userInputCityNameDFS);
                             userInputCityNameDFS.clear();
                             cityNameDFS.setString("");
-                            //addCityOpen = false;
+                            addCityDFSOpen = false;
+                            BFSOpen = true;
+                            DFSOpen = true;
+                            PrimOpen = true;
                         }
                     }
                     if (saveInfoPopUpPRIM.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
@@ -607,7 +635,10 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             graph.Prim(userInputCityNamePRIM);
                             userInputCityNamePRIM.clear();
                             cityNamePRIM.setString("");
-                            //addCityOpen = false;
+                            addCityPrimOpen = false;
+                            BFSOpen = true;
+                            DFSOpen = true;
+                            PrimOpen = true;
                         }
                     }
                     if (saveInfoPopUpAddCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
@@ -692,7 +723,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         BFSOpen = true;
                         DFSOpen = true;
                         PrimOpen = true;
-                     
+                        addCityBFSOpen = false;
+                        addCityDFSOpen = false;
+                        addCityPrimOpen = false;
                     }
                     if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && backIconAddGraphOpen) {
                         graphs[to_string(max + 1)] = graph;
@@ -728,244 +761,244 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                 }
             }
-            else if (event.type == Event::MouseMoved)
-            {
-                Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
-                if (addCityText.getGlobalBounds().contains(mousePos))
+                else if (event.type == Event::MouseMoved)
                 {
-                    addCityText.setScale(1.7, 1.7);
+                    Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+                    if (addCityText.getGlobalBounds().contains(mousePos))
+                    {
+                        addCityText.setScale(1.7, 1.7);
+                    }
+                    else
+                    {
+                        addCityText.setScale(1.5, 1.5);
+                    }
+                    if (deleteCityText.getGlobalBounds().contains(mousePos))
+                    {
+                        deleteCityText.setScale(1.7, 1.7);
+                    }
+                    else
+                    {
+                        deleteCityText.setScale(1.5, 1.5);
+                    }
+                    if (addEdgeText.getGlobalBounds().contains(mousePos))
+                    {
+                        addEdgeText.setScale(1.7, 1.7);
+                    }
+                    else
+                    {
+                        addEdgeText.setScale(1.5, 1.5);
+                    }
+                    if (deleteEdgeText.getGlobalBounds().contains(mousePos))
+                    {
+                        deleteEdgeText.setScale(1.7, 1.7);
+                    }
+                    else
+                    {
+                        deleteEdgeText.setScale(1.5, 1.5);
+                    }
+                    if (displayGraphText.getGlobalBounds().contains(mousePos))
+                    {
+                        displayGraphText.setScale(1.7, 1.7);
+                    }
+                    else
+                    {
+                        displayGraphText.setScale(1.5, 1.5);
+                    }
                 }
-                else
-                {
-                    addCityText.setScale(1.5, 1.5);
-                }
-                if (deleteCityText.getGlobalBounds().contains(mousePos))
-                {
-                    deleteCityText.setScale(1.7, 1.7);
-                }
-                else
-                {
-                    deleteCityText.setScale(1.5, 1.5);
-                }
-                if (addEdgeText.getGlobalBounds().contains(mousePos))
-                {
-                    addEdgeText.setScale(1.7, 1.7);
-                }
-                else
-                {
-                    addEdgeText.setScale(1.5, 1.5);
-                }
-                if (deleteEdgeText.getGlobalBounds().contains(mousePos))
-                {
-                    deleteEdgeText.setScale(1.7, 1.7);
-                }
-                else
-                {
-                    deleteEdgeText.setScale(1.5, 1.5);
-                }
-                if (displayGraphText.getGlobalBounds().contains(mousePos))
-                {
-                    displayGraphText.setScale(1.7, 1.7);
-                }
-                else
-                {
-                    displayGraphText.setScale(1.5, 1.5);
-                }
-            }
-            else if (event.type == sf::Event::TextEntered) {
-                //activeFieldAddEdge = 0;
-                //activeFieldDeleteEdge = 0;
+                else if (event.type == sf::Event::TextEntered) {
+                    //activeFieldAddEdge = 0;
+                    //activeFieldDeleteEdge = 0;
 
-                if (event.text.unicode < 128 && addCityOpen) {
-                    if (event.text.unicode == '\b' && !userInputCityName.empty()) { // Backspace
-                        userInputCityName.pop_back();
-                        cityName.setString(userInputCityName);
+                    if (event.text.unicode < 128 && addCityOpen) {
+                        if (event.text.unicode == '\b' && !userInputCityName.empty()) { // Backspace
+                            userInputCityName.pop_back();
+                            cityName.setString(userInputCityName);
+                        }
+                        else {
+                            userInputCityName += static_cast<char>(event.text.unicode);
+                            cityName.setString(userInputCityName);
+                        }
                     }
-                    else {
-                        userInputCityName += static_cast<char>(event.text.unicode);
-                        cityName.setString(userInputCityName);
+
+                    if (event.text.unicode < 128 && addEdgeOpen) {
+                        if (event.text.unicode == '\b' && !userInputaddEdgeInfo[activeFieldAddEdge].empty()) { // Backspace
+                            userInputaddEdgeInfo[activeFieldAddEdge].pop_back();
+                            addEdgeInfo[activeFieldAddEdge].setString(userInputaddEdgeInfo[activeFieldAddEdge]);
+                        }
+                        else if (event.text.unicode == '\r' || event.text.unicode == '\n') { // Enter
+                            activeFieldAddEdge = (activeFieldAddEdge + 1) % 3; // Move to the next field
+                        }
+                        else {
+                            userInputaddEdgeInfo[activeFieldAddEdge] += static_cast<char>(event.text.unicode);
+                            addEdgeInfo[activeFieldAddEdge].setString(userInputaddEdgeInfo[activeFieldAddEdge]);
+                        }
+                    }
+                    if (event.text.unicode < 128 && deleteCityOpen) {
+                        if (event.text.unicode == '\b' && !userInputCityNameDelete.empty()) { // Backspace
+                            userInputCityNameDelete.pop_back();
+                            cityNameDelete.setString(userInputCityNameDelete);
+                        }
+                        else {
+                            userInputCityNameDelete += static_cast<char>(event.text.unicode);
+                            cityNameDelete.setString(userInputCityNameDelete);
+                        }
+                    }
+                    if (event.text.unicode < 128 && deleteEdgeOpen) {
+                        if (event.text.unicode == '\b' && !userInputDeleteEdgeInfo[activeFieldDeleteEdge].empty()) { // Backspace
+                            userInputDeleteEdgeInfo[activeFieldDeleteEdge].pop_back();
+                            deleteEdgeInfo[activeFieldDeleteEdge].setString(userInputDeleteEdgeInfo[activeFieldDeleteEdge]);
+                        }
+                        else if (event.text.unicode == '\r' || event.text.unicode == '\n') { // Enter
+                            activeFieldDeleteEdge = (activeFieldDeleteEdge + 1) % 2; // Move to the next field
+                        }
+                        else {
+                            userInputDeleteEdgeInfo[activeFieldDeleteEdge] += static_cast<char>(event.text.unicode);
+                            deleteEdgeInfo[activeFieldDeleteEdge].setString(userInputDeleteEdgeInfo[activeFieldDeleteEdge]);
+                        }
+                    }
+                    if (event.text.unicode < 128 && addCityBFSOpen) {
+                        if (event.text.unicode == '\b' && !userInputCityNameBFS.empty()) { // Backspace
+                            userInputCityNameBFS.pop_back();
+                            cityNameBFS.setString(userInputCityNameBFS);
+                        }
+                        else {
+                            userInputCityNameBFS += static_cast<char>(event.text.unicode);
+                            cityNameBFS.setString(userInputCityNameBFS);
+                        }
+                    }
+                    if (event.text.unicode < 128 && addCityDFSOpen) {
+                        if (event.text.unicode == '\b' && !userInputCityNameDFS.empty()) { // Backspace
+                            userInputCityNameDFS.pop_back();
+                            cityNameDFS.setString(userInputCityNameDFS);
+                        }
+                        else {
+                            userInputCityNameDFS += static_cast<char>(event.text.unicode);
+                            cityNameDFS.setString(userInputCityNameDFS);
+                        }
+                    }
+                    if (event.text.unicode < 128 && addCityPrimOpen) {
+                        if (event.text.unicode == '\b' && !userInputCityNamePRIM.empty()) { // Backspace
+                            userInputCityNamePRIM.pop_back();
+                            cityNamePRIM.setString(userInputCityNamePRIM);
+                        }
+                        else {
+                            userInputCityNamePRIM += static_cast<char>(event.text.unicode);
+                            cityNamePRIM.setString(userInputCityNamePRIM);
+                        }
                     }
                 }
 
-                if (event.text.unicode < 128 && addEdgeOpen) {
-                    if (event.text.unicode == '\b' && !userInputaddEdgeInfo[activeFieldAddEdge].empty()) { // Backspace
-                        userInputaddEdgeInfo[activeFieldAddEdge].pop_back();
-                        addEdgeInfo[activeFieldAddEdge].setString(userInputaddEdgeInfo[activeFieldAddEdge]);
-                    }
-                    else if (event.text.unicode == '\r' || event.text.unicode == '\n') { // Enter
-                        activeFieldAddEdge = (activeFieldAddEdge + 1) % 3; // Move to the next field
-                    }
-                    else {
-                        userInputaddEdgeInfo[activeFieldAddEdge] += static_cast<char>(event.text.unicode);
-                        addEdgeInfo[activeFieldAddEdge].setString(userInputaddEdgeInfo[activeFieldAddEdge]);
+                window.draw(homeS);
+                window.draw(selectionMenuS);
+                window.draw(addGraphPageS);
+                window.draw(loadGraphPageS);
+                window.draw(displayGraphS);
+                window.draw(graphDataS);
+                window.draw(Start);
+                window.draw(addGraphButtonS);
+                window.draw(loadGraphButtonS);
+                window.draw(addMapIconS);
+                window.draw(loadMapIconS);
+                window.draw(fileIconS);
+                window.draw(addIconS);
+                window.draw(backIconAddGraphS);
+                window.draw(backIconLoadGraphS);
+                window.draw(backIconDisplayGraphS);
+                window.draw(backIconLoadGraphDataS);
+                window.draw(StartText);
+                window.draw(addGraphButtonText);
+                window.draw(loadGraphButtonText);
+                window.draw(addCityText);
+                window.draw(deleteCityText);
+                window.draw(addEdgeText);
+                window.draw(deleteEdgeText);
+                window.draw(displayGraphText);
+                window.draw(selectGraphName);
+                if (addCityOpen) {
+                    window.draw(popUpBoxS);
+                    window.draw(saveInfoPopUpAddCity);
+                    window.draw(cancelInfoPopUp);
+                    window.draw(EnterCityName);
+                    window.draw(cityName);
+                }
+                if (addEdgeOpen) {
+                    window.draw(popUpBoxS);
+                    window.draw(saveInfoPopUpAddEdge);
+                    window.draw(cancelInfoPopUp);
+                    window.draw(EnterSourceCityName);
+                    window.draw(EnterDestinationCityName);
+                    window.draw(EnterEdgeWeight);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        window.draw(addEdgeInfo[i]);
                     }
                 }
-                if (event.text.unicode < 128 && deleteCityOpen) {
-                    if (event.text.unicode == '\b' && !userInputCityNameDelete.empty()) { // Backspace
-                        userInputCityNameDelete.pop_back();
-                        cityNameDelete.setString(userInputCityNameDelete);
-                    }
-                    else {
-                        userInputCityNameDelete += static_cast<char>(event.text.unicode);
-                        cityNameDelete.setString(userInputCityNameDelete);
+                if (deleteCityOpen) {
+                    window.draw(popUpBoxS);
+                    window.draw(saveInfoPopUpDeleteCity);
+                    window.draw(cancelInfoPopUp);
+                    window.draw(EnterCityNameDelete);
+                    window.draw(cityNameDelete);
+                }
+                if (deleteEdgeOpen) {
+                    window.draw(popUpBoxS);
+                    window.draw(saveInfoPopUpDeleteEdge);
+                    window.draw(cancelInfoPopUp);
+                    window.draw(EnterSourceCityNameDeleteEdge);
+                    window.draw(EnterDestinationCityNameDeleteEdge);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        window.draw(deleteEdgeInfo[i]);
                     }
                 }
-                if (event.text.unicode < 128 && deleteEdgeOpen) {
-                    if (event.text.unicode == '\b' && !userInputDeleteEdgeInfo[activeFieldDeleteEdge].empty()) { // Backspace
-                        userInputDeleteEdgeInfo[activeFieldDeleteEdge].pop_back();
-                        deleteEdgeInfo[activeFieldDeleteEdge].setString(userInputDeleteEdgeInfo[activeFieldDeleteEdge]);
-                    }
-                    else if (event.text.unicode == '\r' || event.text.unicode == '\n') { // Enter
-                        activeFieldDeleteEdge = (activeFieldDeleteEdge + 1) % 2; // Move to the next field
-                    }
-                    else {
-                        userInputDeleteEdgeInfo[activeFieldDeleteEdge] += static_cast<char>(event.text.unicode);
-                        deleteEdgeInfo[activeFieldDeleteEdge].setString(userInputDeleteEdgeInfo[activeFieldDeleteEdge]);
-                    }
-                }
-                if (event.text.unicode < 128 && BFSOpen) {
-                    if (event.text.unicode == '\b' && !userInputCityNameBFS.empty()) { // Backspace
-                        userInputCityNameBFS.pop_back();
-                        cityNameBFS.setString(userInputCityNameBFS);
-                    }
-                    else {
-                        userInputCityNameBFS += static_cast<char>(event.text.unicode);
-                        cityNameBFS.setString(userInputCityNameBFS);
-                    }
-                }
-                if (event.text.unicode < 128 && DFSOpen) {
-                    if (event.text.unicode == '\b' && !userInputCityNameDFS.empty()) { // Backspace
-                        userInputCityNameDFS.pop_back();
-                        cityNameDFS.setString(userInputCityNameDFS);
-                    }
-                    else {
-                        userInputCityNameDFS += static_cast<char>(event.text.unicode);
-                        cityNameDFS.setString(userInputCityNameDFS);
-                    }
-                }
-                if (event.text.unicode < 128 && PrimOpen) {
-                    if (event.text.unicode == '\b' && !userInputCityNamePRIM.empty()) { // Backspace
-                        userInputCityNamePRIM.pop_back();
-                        cityNamePRIM.setString(userInputCityNamePRIM);
-                    }
-                    else {
-                        userInputCityNamePRIM += static_cast<char>(event.text.unicode);
-                        cityNamePRIM.setString(userInputCityNamePRIM);
-                    }
-                }
-            }
-
-            window.draw(homeS);
-            window.draw(selectionMenuS);
-            window.draw(addGraphPageS);
-            window.draw(loadGraphPageS);
-            window.draw(displayGraphS);
-            window.draw(graphDataS);
-            window.draw(Start);
-            window.draw(addGraphButtonS);
-            window.draw(loadGraphButtonS);
-            window.draw(addMapIconS);
-            window.draw(loadMapIconS);
-            window.draw(fileIconS);
-            window.draw(addIconS);
-            window.draw(backIconAddGraphS);
-            window.draw(backIconLoadGraphS);
-            window.draw(backIconDisplayGraphS);
-            window.draw(backIconLoadGraphDataS);
-            window.draw(StartText);
-            window.draw(addGraphButtonText);
-            window.draw(loadGraphButtonText);
-            window.draw(addCityText);
-            window.draw(deleteCityText);
-            window.draw(addEdgeText);
-            window.draw(deleteEdgeText);
-            window.draw(displayGraphText);
-            window.draw(selectGraphName);
-            if (addCityOpen) {
-                window.draw(popUpBoxS);
-                window.draw(saveInfoPopUpAddCity);
-                window.draw(cancelInfoPopUp);
-                window.draw(EnterCityName);
-                window.draw(cityName);
-            }
-            if (addEdgeOpen) {
-                window.draw(popUpBoxS);
-                window.draw(saveInfoPopUpAddEdge);
-                window.draw(cancelInfoPopUp);
-                window.draw(EnterSourceCityName);
-                window.draw(EnterDestinationCityName);
-                window.draw(EnterEdgeWeight);
-                for (int i = 0; i < 3; i++)
+                if (addCityBFSOpen)
                 {
-                    window.draw(addEdgeInfo[i]);
+                    window.draw(popUpBoxAlgoS);
+                    window.draw(saveInfoPopUpBFS);
+                    window.draw(cancelInfoPopUpAlgo);
+                    window.draw(EnterCityNameBFS);
+                    window.draw(cityNameBFS);
                 }
-            }
-            if (deleteCityOpen) {
-                window.draw(popUpBoxS);
-                window.draw(saveInfoPopUpDeleteCity);
-                window.draw(cancelInfoPopUp);
-                window.draw(EnterCityNameDelete);
-                window.draw(cityNameDelete);
-            }
-            if (deleteEdgeOpen) {
-                window.draw(popUpBoxS);
-                window.draw(saveInfoPopUpDeleteEdge);
-                window.draw(cancelInfoPopUp);
-                window.draw(EnterSourceCityNameDeleteEdge);
-                window.draw(EnterDestinationCityNameDeleteEdge);
-                for (int i = 0; i < 2; i++)
+                if (addCityDFSOpen)
                 {
-                    window.draw(deleteEdgeInfo[i]);
+                    window.draw(popUpBoxAlgoS);
+                    window.draw(saveInfoPopUpDFS);
+                    window.draw(cancelInfoPopUpAlgo);
+                    window.draw(EnterCityNameDFS);
+                    window.draw(cityNameDFS);
                 }
-            }
-            if (BFSOpen)
-            {
-                window.draw(popUpBoxAlgoS);
-                window.draw(saveInfoPopUpBFS);
-                window.draw(cancelInfoPopUpAlgo);
-                window.draw(EnterCityNameBFS);
-                window.draw(cityNameBFS);
-            }
-            if (DFSOpen)
-            {
-                window.draw(popUpBoxAlgoS);
-                window.draw(saveInfoPopUpDFS);
-                window.draw(cancelInfoPopUpAlgo);
-                window.draw(EnterCityNameDFS);
-                window.draw(cityNameDFS);
-            }
-            if (PrimOpen)
-            {
-                window.draw(popUpBoxAlgoS);
-                window.draw(saveInfoPopUpPRIM);
-                window.draw(cancelInfoPopUpAlgo);
-                window.draw(EnterCityNamePRIM);
-                window.draw(cityNamePRIM);
-            }
-            for (auto i = 1; i < graphs.size(); i++)
-            {
-                window.draw(borderS[i]);
-            }
-            for (auto i = 1; i < graphName.size(); ++i)
-            {
-                graphName[i].setPosition(6700, 145 + (125 * i));
-                window.draw(graphName[i]);
-            }
-            for (auto i = 0; i < selectedGraphCity.size(); ++i)
-            {
-                selectedGraphCity[i].setPosition(9860, 220 + (100 * i));
-                window.draw(selectedGraphCity[i]);
-            }
-            window.draw(CitiesIngraph);
-            window.draw(ProceedToEditGraphS);
-            window.draw(ProceedToEditGraph);
-            window.draw(DFSs);
-            window.draw(BFSs);
-            window.draw(PRIMs);
-            window.draw(DFS); 
-            window.draw(BFS); 
-            window.draw(PRIM);
-            window.display();
+                if (addCityPrimOpen)
+                {
+                    window.draw(popUpBoxAlgoS);
+                    window.draw(saveInfoPopUpPRIM);
+                    window.draw(cancelInfoPopUpAlgo);
+                    window.draw(EnterCityNamePRIM);
+                    window.draw(cityNamePRIM);
+                }
+                for (auto i = 1; i < graphs.size(); i++)
+                {
+                    window.draw(borderS[i]);
+                }
+                for (auto i = 1; i < graphName.size(); ++i)
+                {
+                    graphName[i].setPosition(6700, 145 + (125 * i));
+                    window.draw(graphName[i]);
+                }
+                for (auto i = 0; i < selectedGraphCity.size(); ++i)
+                {
+                    selectedGraphCity[i].setPosition(9860, 220 + (100 * i));
+                    window.draw(selectedGraphCity[i]);
+                }
+                window.draw(CitiesIngraph);
+                window.draw(ProceedToEditGraphS);
+                window.draw(ProceedToEditGraph);
+                window.draw(DFSs);
+                window.draw(BFSs);
+                window.draw(PRIMs);
+                window.draw(DFS);
+                window.draw(BFS);
+                window.draw(PRIM);
+                window.display();
         }
     }
 }

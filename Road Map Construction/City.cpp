@@ -32,20 +32,20 @@ void City::setEdgeList(vector<Edge> edgeList)
 
 void City::setX(int X)
 {
-	this->X = X;
+    this->X = X;
 }
 
 void City::setY(int Y)
 {
-	this->Y = Y;
+    this->Y = Y;
 }
 
 int City::getX()
 {
-	return X;
+    return X;
 }
 
 int City::getY()
 {
-	return Y;
+    return Y;
 }
