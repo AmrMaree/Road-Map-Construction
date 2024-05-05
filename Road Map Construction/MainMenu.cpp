@@ -632,7 +632,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (saveInfoPopUpPRIM.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityNamePRIM.empty()) {
-                            graph.Prim(userInputCityNamePRIM);
+                            vector<pair<int, pair<string, string>>> MST = graph.Prim(userInputCityNamePRIM);
+                            graph.drawMST(MST);
                             userInputCityNamePRIM.clear();
                             cityNamePRIM.setString("");
                             addCityPrimOpen = false;
@@ -806,9 +807,6 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                 }
                 else if (event.type == sf::Event::TextEntered) {
-                    //activeFieldAddEdge = 0;
-                    //activeFieldDeleteEdge = 0;
-
                     if (event.text.unicode < 128 && addCityOpen) {
                         if (event.text.unicode == '\b' && !userInputCityName.empty()) { // Backspace
                             userInputCityName.pop_back();

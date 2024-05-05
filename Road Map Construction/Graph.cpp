@@ -370,12 +370,9 @@ void Graph::BFS(string cityName) {
 void Graph::Prim(string startCity) {
     if (!CityExist(startCity)) {
         cout << "Starting city not found.\n";
-        return;
+        return MST;
     }
 
-    unordered_map<string, bool> visited;
-    priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
-    vector<pair<string, int>> MST; // Store MST edges
 
     // Mark all cities as unvisited
     for (auto pair : cities) {
@@ -383,25 +380,26 @@ void Graph::Prim(string startCity) {
     }
 
     // Start with the given city
-    pq.push({ 0, startCity });
+    pq.push({ 0, {startCity, startCity} }); // Source city is the same as destination city for the start
 
     while (!pq.empty()) {
-        string currentCity = pq.top().second;
+        string sourceCity = pq.top().second.first;
+        string destinationCity = pq.top().second.second;
         int currentWeight = pq.top().first;
         pq.pop();
 
-        if (!visited[currentCity]) {
-            visited[currentCity] = true;
+        if (!visited[destinationCity]) {
+            visited[destinationCity] = true;
 
             // Add edge to MST
-            if (currentCity != startCity) {
-                MST.push_back({ currentCity, currentWeight });
+            if (destinationCity != startCity) {
+                MST.push_back({ currentWeight, {sourceCity, destinationCity} });
             }
 
             // Visit neighbors and update priority queue
-            for (Edge edge : cities[currentCity].getEdgeList()) {
+            for (Edge edge : cities[destinationCity].getEdgeList()) {
                 if (!visited[edge.getDestinationCity()]) {
-                    pq.push({ edge.getWeight(), edge.getDestinationCity() });
+                    pq.push({ edge.getWeight(), {destinationCity, edge.getDestinationCity()} });
                 }
             }
         }
@@ -410,6 +408,74 @@ void Graph::Prim(string startCity) {
     // Print MST edges
     cout << "Minimum Spanning Tree (MST) Edges:\n";
     for (auto edge : MST) {
-        cout << edge.first << " - " << edge.second << endl;
+        cout << "Edge: " << edge.second.first << " - " << edge.second.second << ", Weight: " << edge.first << endl;
+    }
+    return MST;
+}
+
+void Graph::drawMST(vector<pair<int, pair<string, string>>> MST) {
+    RenderWindow window(sf::VideoMode(900, 700), "Graph Drawing");
+    window.setFramerateLimit(60);   
+
+    Font font;
+    font.loadFromFile("Fonts/font.otf");
+   
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        window.clear(Color::White);
+
+        // Draw cities
+        for (auto pair : cities) {
+            City city = pair.second;
+            CircleShape circle(18.f);
+            circle.setFillColor(Color::Blue);
+            circle.setPosition(city.getX(), city.getY());
+            window.draw(circle);
+
+            // Draw city name
+            Text text;
+            text.setString(city.getCityName());
+            text.setFont(font);
+            text.setCharacterSize(20);
+            text.setFillColor(Color::Black);
+            text.setPosition(city.getX() + 38, city.getY() - 5);
+            window.draw(text);
+        }
+
+        // Draw MST edges
+        for (auto edge : MST) {
+            string sourceCityName = edge.second.first;
+            string destinationCityName = edge.second.second;
+            int weight = edge.first;
+
+            if (cities.find(sourceCityName) != cities.end() && cities.find(destinationCityName) != cities.end()) {
+                City sourceCity = cities[sourceCityName];
+                City destinationCity = cities[destinationCityName];
+
+                VertexArray line(Lines, 2);
+                line[0].position = Vector2f(sourceCity.getX() + 15, sourceCity.getY() + 20);
+                line[1].position = Vector2f(destinationCity.getX() + 15, destinationCity.getY() + 20);
+                line[0].color = Color::Red; // You can choose any color you want for MST edges
+                line[1].color = Color::Red;
+                window.draw(line);
+
+                // Draw weight of the edge
+                Text weightText;
+                weightText.setString(to_string(weight));
+                weightText.setFont(font);
+                weightText.setCharacterSize(20);
+                weightText.setFillColor(Color::Black);
+                float textX = (sourceCity.getX() + destinationCity.getX()) / 2.0f;
+                float textY = (sourceCity.getY() + destinationCity.getY()) / 2.0f;
+                weightText.setPosition(textX, textY);
+                window.draw(weightText);
+            }
+        }
+
+        window.display();
     }
 }
