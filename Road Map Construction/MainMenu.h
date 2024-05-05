@@ -17,6 +17,9 @@ private:
     Texture backIcon;
     Texture popUpBox;
     Texture border;
+    Texture bgColor;
+    Texture Logo;
+    Texture Noti;
 
     Text StartText;
     Text addGraphButtonText;
@@ -59,6 +62,10 @@ private:
     Text cityNameBFS;
     Text cityNameDFS;
     Text cityNamePRIM;
+    Text AddCityConfirmation;
+    Text DeleteCityConfirmation;
+    Text AddEdgeConfirmation;
+    Text DeleteEdgeConfirmation;
     vector<Text>graphName;
     vector<Text>selectedGraphCity;
 

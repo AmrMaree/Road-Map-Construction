@@ -1,6 +1,11 @@
 [
     {
-        "cities": [],
+        "cities": [
+            {
+                "cityName": "rt",
+                "edges": []
+            }
+        ],
         "graphName": "1"
     },
     {
@@ -176,5 +181,13 @@
             }
         ],
         "graphName": "3"
+    },
+    {
+        "cities": [],
+        "graphName": "4"
+    },
+    {
+        "cities": [],
+        "graphName": "5"
     }
 ]
