@@ -298,7 +298,6 @@ void Graph::displayGraph()
     }
 }
 
-
 unordered_map<string, City> Graph::getCities()
 {
     return cities;
@@ -359,50 +358,23 @@ void Graph::BFS(string cityName) {
     }
 }
 
-//void Graph::Prim(string startCity) {
-//    if (!CityExist(startCity)) {
-//        cout << "Starting city not found.\n";
-//        return;
-//    }
-//
+//void Graph::BFS(string cityName, vector<string>& bfsOrder) {
 //    unordered_map<string, bool> visited;
-//    priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
-//    vector<pair<string, int>> MST; // Store MST edges
-//
-//    // Mark all cities as unvisited
-//    for (auto pair : cities) {
-//        visited[pair.first] = false;
-//    }
-//
-//    // Start with the given city
-//    pq.push({ 0, startCity });
-//
-//    while (!pq.empty()) {
-//        string currentCity = pq.top().second;
-//        int currentWeight = pq.top().first;
-//        pq.pop();
-//
-//        if (!visited[currentCity]) {
-//            visited[currentCity] = true;
-//
-//            // Add edge to MST
-//            if (currentCity != startCity) {
-//                MST.push_back({ currentCity, currentWeight });
-//            }
-//
-//            // Visit neighbors and update priority queue
-//            for (Edge edge : cities[currentCity].getEdgeList()) {
+//    queue<City> queue;
+//    if (cities.find(cityName) != cities.end()) {
+//        queue.push(getCity(cityName));
+//        visited[cityName] = true;
+//        while (!queue.empty()) {
+//            City current = queue.front();
+//            queue.pop();
+//            bfsOrder.push_back(current.getCityName()); // Store the BFS traversal order
+//            for (Edge edge : current.getEdgeList()) {
 //                if (!visited[edge.getDestinationCity()]) {
-//                    pq.push({ edge.getWeight(), edge.getDestinationCity() });
+//                    queue.push(getCity(edge.getDestinationCity()));
+//                    visited[edge.getDestinationCity()] = true;
 //                }
-//            }   
+//            }
 //        }
-//    }
-//
-//    // Print MST edges
-//    cout << "Minimum Spanning Tree (MST) Edges:\n";
-//    for (auto edge : MST) {
-//        cout << edge.first << " - " << edge.second << endl;
 //    }
 //}
 
