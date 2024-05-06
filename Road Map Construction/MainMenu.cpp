@@ -672,12 +672,13 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (saveInfoPopUpBFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityNameBFS.empty() && graph.CityExist(userInputCityNameBFS)) {
-                            string bfsResult;
+                            string bfsResult,strBFS;
                             graph.BFS(userInputCityNameBFS, bfsResult);
                             bfsOrderText.setString(bfsResult);
                             bfsOrderText.setFont(font);
                             bfsOrderText.setScale(1.5, 1.5);
-                            bfsOrderText.setPosition(7780, 170);
+                            bfsOrderText.setOutlineThickness(1.3);
+                            bfsOrderText.setPosition(7780, 380);
                             userInputCityNameBFS.clear();
                             cityNameBFS.setString("");
                             addCityBFSOpen = false;
@@ -695,8 +696,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             graph.DFS(userInputCityNameDFS, dfsResult);
                             dfsOrderText.setString(dfsResult);
                             dfsOrderText.setFont(font);
-                            dfsOrderText.setScale(3, 3);
-                            dfsOrderText.setPosition(8180, 300);
+                            dfsOrderText.setScale(1.5, 1.5);
+                            dfsOrderText.setOutlineThickness(1.3);
+                            dfsOrderText.setPosition(7780, 380);
                             userInputCityNameDFS.clear();
                             cityNameDFS.setString("");
                             addCityDFSOpen = false;
@@ -1213,7 +1215,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
             window.draw(EnterCityNamePRIM);
             window.draw(cityNamePRIM);
         }
-        if(bfsResultOpen)
+        if (bfsResultOpen)
         {
             window.draw(bfsOrderText);
         }
@@ -1266,9 +1268,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
         }
         window.draw(bgColorS);
         window.draw(roadMapLogo);
-        if (startOpen && bgClock.getElapsedTime().asSeconds() <= 3.f)
+        if (startOpen && bgClock.getElapsedTime().asSeconds() <= 2.5f)
         {
-            float alpha = 255.f * (1.f - (bgClock.getElapsedTime().asSeconds() / 3.f));
+            float alpha = 255.f * (1.f - (bgClock.getElapsedTime().asSeconds() / 2.5f));
             bgColorS.setColor(Color(255, 255, 255, static_cast<Uint8>(alpha)));
             // roadMapLogo.setColor(Color(255, 255, 255, static_cast<Uint8>(alpha)));
         }

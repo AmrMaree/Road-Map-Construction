@@ -6,19 +6,8 @@
     {
         "cities": [
             {
-                "cityName": "amr",
-                "edges": [
-                    {
-                        "destinationCity": "cairo",
-                        "sourceCity": "amr",
-                        "weight": 2
-                    },
-                    {
-                        "destinationCity": "cairo",
-                        "sourceCity": "amr",
-                        "weight": 2
-                    }
-                ]
+                "cityName": "domyat",
+                "edges": []
             },
             {
                 "cityName": "cairo",
@@ -39,6 +28,11 @@
                         "weight": 7
                     },
                     {
+                        "destinationCity": "amr",
+                        "sourceCity": "cairo",
+                        "weight": 2
+                    },
+                    {
                         "destinationCity": "menofia",
                         "sourceCity": "cairo",
                         "weight": 4
@@ -51,8 +45,14 @@
                 ]
             },
             {
-                "cityName": "domyat",
-                "edges": []
+                "cityName": "amr",
+                "edges": [
+                    {
+                        "destinationCity": "cairo",
+                        "sourceCity": "amr",
+                        "weight": 2
+                    }
+                ]
             },
             {
                 "cityName": "menofia",

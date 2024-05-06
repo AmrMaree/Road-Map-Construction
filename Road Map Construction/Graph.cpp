@@ -191,7 +191,7 @@ void Graph::deleteEdge(string sourceCity, string destinationCity)
     }
 }
 
-bool Graph :: isClose(float x1, float y1, float x2, float y2, float minDistance)
+bool Graph::isClose(float x1, float y1, float x2, float y2, float minDistance)
 {
     float dx = x2 - x1;
     float dy = y2 - y1;
@@ -202,6 +202,13 @@ void Graph::displayGraph()
 {
     RenderWindow window(sf::VideoMode(900, 700), "Graph Drawing");
     window.setFramerateLimit(60);
+
+    Texture bg;
+    bg.loadFromFile("Textures/bgColor.png");
+    Sprite bgS(bg);
+    
+    Texture locationIcon;
+    locationIcon.loadFromFile("Textures/LocationIcon.png");
 
     Font font;
     font.loadFromFile("Fonts/font.otf");
@@ -256,44 +263,45 @@ void Graph::displayGraph()
     offsetY -= graphCenterY;
 
     while (window.isOpen()) {
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
         window.clear(Color::White);
-            // Draw cities
+        window.draw(bgS);
+        // Draw cities
         for (auto pair : cities) {
             City city = pair.second;
-            sf::CircleShape circle(18.f);
-            circle.setFillColor(Color::Blue);
-            circle.setPosition(city.getX() + offsetX, city.getY() + offsetY);
-            window.draw(circle);
+            Sprite locationIconS(locationIcon);
+            locationIconS.setScale(0.1, 0.1);
+            locationIconS.setPosition(city.getX() + offsetX, city.getY() + offsetY);
+            window.draw(locationIconS);
 
             // Draw city name
             Text text;
             text.setString(city.getCityName());
             text.setFont(font);
-            text.setCharacterSize(20);
+            text.setCharacterSize(25);
+            text.setOutlineThickness(1.07);
             text.setFillColor(sf::Color::Black);
-            text.setPosition(city.getX() + offsetX + 38, city.getY() + offsetY - 5);
+            text.setPosition(city.getX() + offsetX + 45, city.getY() + offsetY - 5);
             window.draw(text);
 
             // Draw edges
             for (Edge edge : city.getEdgeList()) {
                 City destinationCity = cities[edge.getDestinationCity()];
                 VertexArray line(sf::Lines, 2);
-                line[0].position = Vector2f(city.getX() + offsetX + 15, city.getY() + offsetY + 20);
-                line[1].position = Vector2f(destinationCity.getX()+ offsetX + 15, destinationCity.getY() + offsetY + 20);
+                line[0].position = Vector2f(city.getX() + offsetX + 25, city.getY() + offsetY + 20);
+                line[1].position = Vector2f(destinationCity.getX() + offsetX + 25, destinationCity.getY() + offsetY + 20);
                 line[0].color = sf::Color::Black;
                 line[1].color = sf::Color::Black;
                 window.draw(line);
             }
-            
-           
-        }
 
+
+        }
         window.display();
     }
 }
@@ -312,52 +320,6 @@ void Graph::setCities(string cityName)
     cities[cityName] = City(cityName);
 }
 
-//void Graph::DFS(string startCity) {
-//    if (!CityExist(startCity)) {
-//        cout << "Starting city not found.\n";
-//        return;
-//    }
-//
-//    unordered_map<string, bool> visited;
-//    stack<City> stack;
-//    stack.push(getCity(startCity));
-//    while (!stack.empty()) {
-//        City currentCity = stack.top();
-//        stack.pop();
-//        if (!visited[currentCity.getCityName()]) {
-//            cout << currentCity.getCityName() << " ";
-//            visited[currentCity.getCityName()] = true;
-//            for (Edge edge : currentCity.getEdgeList()) {
-//                if (!visited[edge.getDestinationCity()]) {
-//                    stack.push(getCity(edge.getDestinationCity()));
-//                }
-//            }
-//        }
-//    }
-//    cout << endl;
-//}
-
-//void Graph::BFS(string cityName) {
-//    unordered_map<string, bool> visited;
-//    queue<City> queue;
-//    if (cities.find(cityName) != cities.end()) {
-//        queue.push(getCity(cityName));
-//        visited[cityName] = true;
-//        while (!queue.empty()) {
-//            City current = queue.front();
-//            queue.pop();
-//            cout << current.getCityName() << ' ';
-//            for (Edge edge : current.getEdgeList()) {
-//                if (!visited[edge.getDestinationCity()]) {
-//                    queue.push(getCity(edge.getDestinationCity()));
-//                    visited[edge.getDestinationCity()] = true;
-//                }
-//            }
-//        }
-//        cout << endl;
-//    }
-//}
-
 void Graph::BFS(string cityName, string& bfsOrder) {
     unordered_map<string, bool> visited;
     queue<City> queue;
@@ -367,7 +329,7 @@ void Graph::BFS(string cityName, string& bfsOrder) {
         while (!queue.empty()) {
             City current = queue.front();
             queue.pop();
-            bfsOrder += current.getCityName() + " ";
+            bfsOrder += current.getCityName() + "  --> ";
             for (Edge edge : current.getEdgeList()) {
                 if (!visited[edge.getDestinationCity()]) {
                     queue.push(getCity(edge.getDestinationCity()));
@@ -376,6 +338,7 @@ void Graph::BFS(string cityName, string& bfsOrder) {
             }
         }
     }
+    bfsOrder = bfsOrder.substr(0, bfsOrder.length() - 4);
 }
 
 
@@ -392,7 +355,7 @@ void Graph::DFS(string startCity, string& dfsOrder) {
         City currentCity = stack.top();
         stack.pop();
         if (!visited[currentCity.getCityName()]) {
-            dfsOrder += currentCity.getCityName() + " ";
+            dfsOrder += currentCity.getCityName() + "  --> ";
             visited[currentCity.getCityName()] = true;
             for (Edge edge : currentCity.getEdgeList()) {
                 if (!visited[edge.getDestinationCity()]) {
@@ -401,11 +364,12 @@ void Graph::DFS(string startCity, string& dfsOrder) {
             }
         }
     }
+    dfsOrder = dfsOrder.substr(0, dfsOrder.length() - 4);
 }
 
 
 vector<pair<int, pair<string, string>>> Graph::Prim(string startCity) {
-    
+
     unordered_map<string, bool> visited;
     priority_queue<pair<int, pair<string, string>>, vector<pair<int, pair<string, string>>>, greater<pair<int, pair<string, string>>>> pq;
     vector<pair<int, pair<string, string>>> MST; // Store MST edges (weight, (sourceCity, destinationCity))
@@ -457,11 +421,18 @@ vector<pair<int, pair<string, string>>> Graph::Prim(string startCity) {
 
 void Graph::drawMST(vector<pair<int, pair<string, string>>> MST) {
     RenderWindow window(sf::VideoMode(900, 700), "Graph Drawing");
-    window.setFramerateLimit(60);   
+    window.setFramerateLimit(60);
+
+    Texture bg;
+    bg.loadFromFile("Textures/bgColor.png");
+    Sprite bgS(bg);
+
+    Texture locationIcon;
+    locationIcon.loadFromFile("Textures/LocationIcon.png");
 
     Font font;
     font.loadFromFile("Fonts/font.otf");
-   
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -469,22 +440,23 @@ void Graph::drawMST(vector<pair<int, pair<string, string>>> MST) {
                 window.close();
         }
         window.clear(Color::White);
-
+        window.draw(bgS);
         // Draw cities
         for (auto pair : cities) {
             City city = pair.second;
-            CircleShape circle(18.f);
-            circle.setFillColor(Color::Blue);
-            circle.setPosition(city.getX(), city.getY());
-            window.draw(circle);
+            Sprite locationIconS(locationIcon);
+            locationIconS.setScale(0.1, 0.1);
+            locationIconS.setPosition(city.getX(), city.getY());
+            window.draw(locationIconS);
 
             // Draw city name
             Text text;
             text.setString(city.getCityName());
             text.setFont(font);
-            text.setCharacterSize(20);
+            text.setCharacterSize(25);
+            text.setOutlineThickness(1.07);
             text.setFillColor(Color::Black);
-            text.setPosition(city.getX() + 38, city.getY() - 5);
+            text.setPosition(city.getX() + 45, city.getY() - 5);
             window.draw(text);
         }
 
@@ -499,8 +471,8 @@ void Graph::drawMST(vector<pair<int, pair<string, string>>> MST) {
                 City destinationCity = cities[destinationCityName];
 
                 VertexArray line(Lines, 2);
-                line[0].position = Vector2f(sourceCity.getX() + 15, sourceCity.getY() + 20);
-                line[1].position = Vector2f(destinationCity.getX() + 15, destinationCity.getY() + 20);
+                line[0].position = Vector2f(sourceCity.getX() + 25, sourceCity.getY() + 20);
+                line[1].position = Vector2f(destinationCity.getX() + 25, destinationCity.getY() + 20);
                 line[0].color = Color::Red; // You can choose any color you want for MST edges
                 line[1].color = Color::Red;
                 window.draw(line);
@@ -509,7 +481,8 @@ void Graph::drawMST(vector<pair<int, pair<string, string>>> MST) {
                 Text weightText;
                 weightText.setString(to_string(weight));
                 weightText.setFont(font);
-                weightText.setCharacterSize(20);
+                weightText.setCharacterSize(25);
+                weightText.setOutlineThickness(1.07);
                 weightText.setFillColor(Color::Black);
                 float textX = (sourceCity.getX() + destinationCity.getX()) / 2.0f;
                 float textY = (sourceCity.getY() + destinationCity.getY()) / 2.0f;
