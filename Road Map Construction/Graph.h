@@ -32,8 +32,8 @@ public:
 		bool isClose(float x1, float y1, float x2, float y2, float minDistance);
 		void drawMST(vector<pair<int, pair<string, string>>>);
 		unordered_map<string, City> getCities();
-		void BFS(string cityName);
-		void DFS(string cityName);
+			void BFS(string cityName, string& bfsOrder);
+			void DFS(string cityName, string& traversalOrder);
 		vector<pair<int, pair<string, string>>> Prim(string startCity);
 		void clearGraph();
 		void setCities(string cityName);

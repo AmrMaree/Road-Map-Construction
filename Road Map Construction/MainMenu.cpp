@@ -59,6 +59,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool savedInfoAddEdge = false;
     bool savedInfoDeleteCity = false;
     bool savedInfoDeleteEdge = false;
+    bool bfsResultOpen = false;
+    bool dfsResultOpen = false;
 
     Clock bgClock;
 
@@ -69,20 +71,20 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     roadMapLogo.setPosition(698, 140);
 
     Sprite NotiS(Noti);
-    NotiS.setPosition(4480, 0);
-    NotiS.setScale(1, 1);
+    NotiS.setPosition(4510, 0);
+    NotiS.setScale(0.6, 0.58);
 
     Sprite NotiAddEdgeS(Noti);
-    NotiAddEdgeS.setPosition(4480, 0);
-    NotiAddEdgeS.setScale(1, 1);
+    NotiAddEdgeS.setPosition(4510, 0);
+    NotiAddEdgeS.setScale(0.6, 0.58);
 
     Sprite NotiDeleteCityS(Noti);
-    NotiDeleteCityS.setPosition(4480, 0);
-    NotiDeleteCityS.setScale(1, 1);
+    NotiDeleteCityS.setPosition(4510, 0);
+    NotiDeleteCityS.setScale(0.6, 0.58);
 
     Sprite NotiDeleteEdgeS(Noti);
-    NotiDeleteEdgeS.setPosition(4480, 0);
-    NotiDeleteEdgeS.setScale(1, 1);
+    NotiDeleteEdgeS.setPosition(4510, 0);
+    NotiDeleteEdgeS.setScale(0.6, 0.58);
 
     Sprite selectionMenuS(selectionMenu);
     selectionMenuS.setPosition(1920, 0);
@@ -201,31 +203,31 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     addCityText.setFont(font);
     addCityText.setScale(1.5, 1.5);
     addCityText.setOutlineThickness(1.5);
-    addCityText.setPosition(3990, 200);
+    addCityText.setPosition(3990, 170);
 
     addEdgeText.setString("Add Edge");
     addEdgeText.setFont(font);
     addEdgeText.setScale(1.5, 1.5);
     addEdgeText.setOutlineThickness(1.5);
-    addEdgeText.setPosition(3990, 350);
+    addEdgeText.setPosition(3990, 320);
 
     deleteCityText.setString("Delete City");
     deleteCityText.setFont(font);
     deleteCityText.setScale(1.5, 1.5);
     deleteCityText.setOutlineThickness(1.5);
-    deleteCityText.setPosition(3990, 500);
+    deleteCityText.setPosition(3990, 470);
 
     deleteEdgeText.setString("Delete Edge");
     deleteEdgeText.setFont(font);
     deleteEdgeText.setScale(1.5, 1.5);
     deleteEdgeText.setOutlineThickness(1.5);
-    deleteEdgeText.setPosition(3990, 650);
+    deleteEdgeText.setPosition(3990, 620);
 
     displayGraphText.setString("Display Graph");
     displayGraphText.setFont(font);
     displayGraphText.setScale(1.5, 1.5);
     displayGraphText.setOutlineThickness(1.5);
-    displayGraphText.setPosition(3990, 800);
+    displayGraphText.setPosition(3990, 770);
 
     saveInfoPopUpAddCity.setString("Add City");
     saveInfoPopUpAddCity.setFont(font);
@@ -407,19 +409,19 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     saveInfoPopUpBFS.setFont(font);
     saveInfoPopUpBFS.setScale(1.17, 1.17);
     saveInfoPopUpBFS.setOutlineThickness(1.5);
-    saveInfoPopUpBFS.setPosition(popUpBoxAlgoS.getPosition().x + 365, popUpBoxAlgoS.getPosition().y + 300);
+    saveInfoPopUpBFS.setPosition(popUpBoxAlgoS.getPosition().x + 378, popUpBoxAlgoS.getPosition().y + 300);
 
     saveInfoPopUpDFS.setString("Search");
     saveInfoPopUpDFS.setFont(font);
     saveInfoPopUpDFS.setScale(1.17, 1.17);
     saveInfoPopUpDFS.setOutlineThickness(1.5);
-    saveInfoPopUpDFS.setPosition(popUpBoxAlgoS.getPosition().x + 365, popUpBoxAlgoS.getPosition().y + 300);
+    saveInfoPopUpDFS.setPosition(popUpBoxAlgoS.getPosition().x + 378, popUpBoxAlgoS.getPosition().y + 300);
 
     saveInfoPopUpPRIM.setString("Search");
     saveInfoPopUpPRIM.setFont(font);
     saveInfoPopUpPRIM.setScale(1.17, 1.17);
     saveInfoPopUpPRIM.setOutlineThickness(1.5);
-    saveInfoPopUpPRIM.setPosition(popUpBoxAlgoS.getPosition().x + 375, popUpBoxAlgoS.getPosition().y + 300);
+    saveInfoPopUpPRIM.setPosition(popUpBoxAlgoS.getPosition().x + 378, popUpBoxAlgoS.getPosition().y + 300);
 
     cancelInfoPopUpAlgo.setString("Cancel");
     cancelInfoPopUpAlgo.setFont(font);
@@ -451,6 +453,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     AddEdgeConfirmation.setOutlineThickness(1.5);
     AddEdgeConfirmation.setPosition(4600, 50);
     //Text selectedGraphCityT;
+
 
     int activeFieldAddCity = 0;
     int activeFieldDeleteCity = 0;
@@ -535,6 +538,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
+                        bfsResultOpen = false;
+                        dfsResultOpen = false;
                         addCityDFSOpen = true;
                     }
                     if (BFSs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && BFSOpen)
@@ -542,6 +547,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
+                        bfsResultOpen = false;
+                        dfsResultOpen = false;
                         addCityBFSOpen = true;
                     }
                     if (PRIMs.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && PrimOpen)
@@ -549,6 +556,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
+                        bfsResultOpen = false;
+                        dfsResultOpen = false;
                         addCityPrimOpen = true;
                     }
                     for (int i = 1; i < graphs.size(); ++i)
@@ -662,11 +671,18 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpBFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputCityNameBFS.empty()) {
-                            graph.DFS(userInputCityNameBFS);
+                        if (!userInputCityNameBFS.empty() && graph.CityExist(userInputCityNameBFS)) {
+                            string bfsResult;
+                            graph.BFS(userInputCityNameBFS, bfsResult);
+                            bfsOrderText.setString(bfsResult);
+                            bfsOrderText.setFont(font);
+                            bfsOrderText.setScale(1.5, 1.5);
+                            bfsOrderText.setPosition(7780, 170);
                             userInputCityNameBFS.clear();
                             cityNameBFS.setString("");
                             addCityBFSOpen = false;
+                            dfsResultOpen = false;
+                            bfsResultOpen = true;
                             BFSOpen = true;
                             DFSOpen = true;
                             PrimOpen = true;
@@ -674,11 +690,18 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpDFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputCityNameDFS.empty()) {
-                            graph.BFS(userInputCityNameDFS);
+                        if (!userInputCityNameDFS.empty() && graph.CityExist(userInputCityNameDFS)) {
+                            string dfsResult;
+                            graph.DFS(userInputCityNameDFS, dfsResult);
+                            dfsOrderText.setString(dfsResult);
+                            dfsOrderText.setFont(font);
+                            dfsOrderText.setScale(3, 3);
+                            dfsOrderText.setPosition(8180, 300);
                             userInputCityNameDFS.clear();
                             cityNameDFS.setString("");
                             addCityDFSOpen = false;
+                            bfsResultOpen = false;
+                            dfsResultOpen = true;
                             BFSOpen = true;
                             DFSOpen = true;
                             PrimOpen = true;
@@ -686,7 +709,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpPRIM.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputCityNamePRIM.empty()) {
+                        if (!userInputCityNamePRIM.empty() && graph.CityExist(userInputCityNamePRIM)) {
                             vector<pair<int, pair<string, string>>> MST = graph.Prim(userInputCityNamePRIM);
                             graph.drawMST(MST);
                             userInputCityNamePRIM.clear();
@@ -699,7 +722,6 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpAddCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
-
                         if (!userInputCityName.empty()) {
                             bgClock.restart();
                             savedInfoAddCity = true;
@@ -811,6 +833,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (backIconDisplayGraphS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && displayGraphOpen) {
                         window.setView(pane2);
                         displayGraphOpen = false;
+                        bfsResultOpen = false;
+                        dfsResultOpen = false;
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
@@ -870,6 +894,157 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 {
                     displayGraphText.setScale(1.5, 1.5);
                 }
+                if (Start.getGlobalBounds().contains(mousePos)) {
+                    Start.setScale(0.34, 0.34);
+                }
+                else
+                {
+                    Start.setScale(0.35, 0.35);
+                }
+                if (addGraphButtonS.getGlobalBounds().contains(mousePos)) {
+                    addGraphButtonS.setScale(0.34, 0.34);
+                }
+                else
+                {
+                    addGraphButtonS.setScale(0.35, 0.35);
+                }
+                if (loadGraphButtonS.getGlobalBounds().contains(mousePos)) {
+                    loadGraphButtonS.setScale(0.34, 0.34);
+                }
+                else
+                {
+                    loadGraphButtonS.setScale(0.35, 0.35);
+                }
+                if (backIconAddGraphS.getGlobalBounds().contains(mousePos)) {
+                    backIconAddGraphS.setScale(0.15, 0.15);
+                }
+                else
+                {
+                    backIconAddGraphS.setScale(0.16, 0.16);
+                }
+                if (backIconLoadGraphS.getGlobalBounds().contains(mousePos)) {
+                    backIconLoadGraphS.setScale(0.15, 0.15);
+                }
+                else
+                {
+                    backIconLoadGraphS.setScale(0.16, 0.16);
+                }
+                if (backIconDisplayGraphS.getGlobalBounds().contains(mousePos)) {
+                    backIconDisplayGraphS.setScale(0.15, 0.15);
+                }
+                else
+                {
+                    backIconDisplayGraphS.setScale(0.16, 0.16);
+                }
+                if (backIconLoadGraphDataS.getGlobalBounds().contains(mousePos)) {
+                    backIconLoadGraphDataS.setScale(0.15, 0.15);
+                }
+                else
+                {
+                    backIconLoadGraphDataS.setScale(0.16, 0.16);
+                }
+                if (ProceedToEditGraphS.getGlobalBounds().contains(mousePos)) {
+                    ProceedToEditGraphS.setScale(0.41, 0.41);
+                }
+                else
+                {
+                    ProceedToEditGraphS.setScale(0.42, 0.42);
+                }
+                if (BFSs.getGlobalBounds().contains(mousePos)) {
+                    BFSs.setScale(0.41, 0.41);
+                }
+                else
+                {
+                    BFSs.setScale(0.42, 0.42);
+                }
+                if (DFSs.getGlobalBounds().contains(mousePos)) {
+                    DFSs.setScale(0.41, 0.41);
+                }
+                else
+                {
+                    DFSs.setScale(0.42, 0.42);
+                }
+                if (PRIMs.getGlobalBounds().contains(mousePos)) {
+                    PRIMs.setScale(0.41, 0.41);
+                }
+                else
+                {
+                    PRIMs.setScale(0.42, 0.42);
+                }
+                if (saveInfoPopUpAddCity.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpAddCity.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpAddCity.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpAddEdge.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpAddEdge.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpAddEdge.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpDeleteCity.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpDeleteCity.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpDeleteCity.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpDeleteEdge.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpDeleteEdge.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpDeleteEdge.setScale(1.17, 1.17);
+                }
+                if (cancelInfoPopUp.getGlobalBounds().contains(mousePos)) {
+                    cancelInfoPopUp.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    cancelInfoPopUp.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpBFS.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpBFS.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpBFS.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpDFS.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpDFS.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpDFS.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpPRIM.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpPRIM.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpPRIM.setScale(1.17, 1.17);
+                }
+                if (cancelInfoPopUpAlgo.getGlobalBounds().contains(mousePos)) {
+                    cancelInfoPopUpAlgo.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    cancelInfoPopUpAlgo.setScale(1.17, 1.17);
+                }
+                for (int i = 1; i < graphs.size(); i++)
+                {
+                    if (borderS[i].getGlobalBounds().contains(mousePos)) {
+                        borderS[i].setScale(0.538, 0.588);
+                    }
+                    else
+                    {
+                        borderS[i].setScale(0.55, 0.6);
+                    }
+                }
+
             }
             else if (event.type == sf::Event::TextEntered) {
                 if (event.text.unicode < 128 && addCityOpen) {
@@ -1038,6 +1213,14 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
             window.draw(EnterCityNamePRIM);
             window.draw(cityNamePRIM);
         }
+        if(bfsResultOpen)
+        {
+            window.draw(bfsOrderText);
+        }
+        if (dfsResultOpen)
+        {
+            window.draw(dfsOrderText);
+        }
         for (auto i = 1; i < graphs.size(); i++)
         {
             window.draw(borderS[i]);
@@ -1075,7 +1258,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
         {
             window.draw(NotiDeleteEdgeS);
             window.draw(DeleteEdgeConfirmation);
-        }   
+        }
         if (savedInfoAddEdge && bgClock.getElapsedTime().asSeconds() <= 2.f)
         {
             window.draw(NotiAddEdgeS);

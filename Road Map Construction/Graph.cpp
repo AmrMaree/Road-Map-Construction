@@ -312,9 +312,76 @@ void Graph::setCities(string cityName)
     cities[cityName] = City(cityName);
 }
 
-void Graph::DFS(string startCity) {
+//void Graph::DFS(string startCity) {
+//    if (!CityExist(startCity)) {
+//        cout << "Starting city not found.\n";
+//        return;
+//    }
+//
+//    unordered_map<string, bool> visited;
+//    stack<City> stack;
+//    stack.push(getCity(startCity));
+//    while (!stack.empty()) {
+//        City currentCity = stack.top();
+//        stack.pop();
+//        if (!visited[currentCity.getCityName()]) {
+//            cout << currentCity.getCityName() << " ";
+//            visited[currentCity.getCityName()] = true;
+//            for (Edge edge : currentCity.getEdgeList()) {
+//                if (!visited[edge.getDestinationCity()]) {
+//                    stack.push(getCity(edge.getDestinationCity()));
+//                }
+//            }
+//        }
+//    }
+//    cout << endl;
+//}
+
+//void Graph::BFS(string cityName) {
+//    unordered_map<string, bool> visited;
+//    queue<City> queue;
+//    if (cities.find(cityName) != cities.end()) {
+//        queue.push(getCity(cityName));
+//        visited[cityName] = true;
+//        while (!queue.empty()) {
+//            City current = queue.front();
+//            queue.pop();
+//            cout << current.getCityName() << ' ';
+//            for (Edge edge : current.getEdgeList()) {
+//                if (!visited[edge.getDestinationCity()]) {
+//                    queue.push(getCity(edge.getDestinationCity()));
+//                    visited[edge.getDestinationCity()] = true;
+//                }
+//            }
+//        }
+//        cout << endl;
+//    }
+//}
+
+void Graph::BFS(string cityName, string& bfsOrder) {
+    unordered_map<string, bool> visited;
+    queue<City> queue;
+    if (cities.find(cityName) != cities.end()) {
+        queue.push(getCity(cityName));
+        visited[cityName] = true;
+        while (!queue.empty()) {
+            City current = queue.front();
+            queue.pop();
+            bfsOrder += current.getCityName() + " ";
+            for (Edge edge : current.getEdgeList()) {
+                if (!visited[edge.getDestinationCity()]) {
+                    queue.push(getCity(edge.getDestinationCity()));
+                    visited[edge.getDestinationCity()] = true;
+                }
+            }
+        }
+    }
+}
+
+
+void Graph::DFS(string startCity, string& dfsOrder) {
     if (!CityExist(startCity)) {
-        cout << "Starting city not found.\n";
+        dfsOrder = "Starting city not found.\n";
         return;
     }
 
@@ -325,7 +392,7 @@ void Graph::DFS(string startCity) {
         City currentCity = stack.top();
         stack.pop();
         if (!visited[currentCity.getCityName()]) {
-            cout << currentCity.getCityName() << " ";
+            dfsOrder += currentCity.getCityName() + " ";
             visited[currentCity.getCityName()] = true;
             for (Edge edge : currentCity.getEdgeList()) {
                 if (!visited[edge.getDestinationCity()]) {
@@ -334,49 +401,8 @@ void Graph::DFS(string startCity) {
             }
         }
     }
-    cout << endl;
 }
 
-void Graph::BFS(string cityName) {
-    unordered_map<string, bool> visited;
-    queue<City> queue;
-    if (cities.find(cityName) != cities.end()) {
-        queue.push(getCity(cityName));
-        visited[cityName] = true;
-        while (!queue.empty()) {
-            City current = queue.front();
-            queue.pop();
-            cout << current.getCityName() << ' ';
-            for (Edge edge : current.getEdgeList()) {
-                if (!visited[edge.getDestinationCity()]) {
-                    queue.push(getCity(edge.getDestinationCity()));
-                    visited[edge.getDestinationCity()] = true;
-                }
-            }
-        }
-        cout << endl;
-    }
-}
-
-//void Graph::BFS(string cityName, vector<string>& bfsOrder) {
-//    unordered_map<string, bool> visited;
-//    queue<City> queue;
-//    if (cities.find(cityName) != cities.end()) {
-//        queue.push(getCity(cityName));
-//        visited[cityName] = true;
-//        while (!queue.empty()) {
-//            City current = queue.front();
-//            queue.pop();
-//            bfsOrder.push_back(current.getCityName()); // Store the BFS traversal order
-//            for (Edge edge : current.getEdgeList()) {
-//                if (!visited[edge.getDestinationCity()]) {
-//                    queue.push(getCity(edge.getDestinationCity()));
-//                    visited[edge.getDestinationCity()] = true;
-//                }
-//            }
-//        }
-//    }
-//}
 
 vector<pair<int, pair<string, string>>> Graph::Prim(string startCity) {
     
