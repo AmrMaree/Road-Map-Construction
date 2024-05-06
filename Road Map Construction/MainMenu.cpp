@@ -586,22 +586,26 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
 
                     if (addCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
+                        activeFieldAddCity = 0;
                         addCityOpen = true;
                         loadGraphOpen = false;
 
                     }
                     if (deleteCityText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
+                        activeFieldDeleteCity = 0;
                         deleteCityOpen = true;
                         loadGraphOpen = false;
                     }
                     if (addEdgeText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
+                        activeFieldAddEdge = 0;
                         addEdgeOpen = true;
                         loadGraphOpen = false;
                     }
                     if (deleteEdgeText.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))
                     {
+                        activeFieldDeleteEdge = 0;
                         deleteEdgeOpen = true;
                         loadGraphOpen = false;
                     }
@@ -1265,6 +1269,13 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
         {
             window.draw(NotiAddEdgeS);
             window.draw(AddEdgeConfirmation);
+        }
+        if (bgClock.getElapsedTime().asSeconds() > 2.f)
+        {
+            savedInfoAddCity = false;
+            savedInfoDeleteCity = false;
+            savedInfoDeleteEdge = false;
+            savedInfoAddEdge = false;
         }
         window.draw(bgColorS);
         window.draw(roadMapLogo);

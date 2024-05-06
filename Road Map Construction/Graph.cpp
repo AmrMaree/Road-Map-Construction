@@ -46,7 +46,7 @@ void Graph::deleteCity(string cityName)
     for (Edge edge : edgeList)
     {
         reqDest = edge.getDestinationCity();
-        deleteEdge(reqDest, cityName);
+        //deleteEdge(reqDest, cityName);
     }
     cities.erase(cityName);
     cout << cityName << "city is deleted successfully" << endl;
