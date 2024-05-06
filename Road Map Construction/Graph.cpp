@@ -46,7 +46,7 @@ void Graph::deleteCity(string cityName)
     for (Edge edge : edgeList)
     {
         reqDest = edge.getDestinationCity();
-        //deleteEdge(reqDest, cityName);
+        deleteEdge(reqDest, cityName);
     }
     cities.erase(cityName);
     cout << cityName << "city is deleted successfully" << endl;
@@ -206,7 +206,7 @@ void Graph::displayGraph()
     Texture bg;
     bg.loadFromFile("Textures/bgColor.png");
     Sprite bgS(bg);
-    
+
     Texture locationIcon;
     locationIcon.loadFromFile("Textures/LocationIcon.png");
 
@@ -367,25 +367,6 @@ void Graph::DFS(string startCity, string& dfsOrder) {
     dfsOrder = dfsOrder.substr(0, dfsOrder.length() - 4);
 }
 
-//void Graph::BFS(string cityName, vector<string>& bfsOrder) {
-//    unordered_map<string, bool> visited;
-//    queue<City> queue;
-//    if (cities.find(cityName) != cities.end()) {
-//        queue.push(getCity(cityName));
-//        visited[cityName] = true;
-//        while (!queue.empty()) {
-//            City current = queue.front();
-//            queue.pop();
-//            bfsOrder.push_back(current.getCityName()); // Store the BFS traversal order
-//            for (Edge edge : current.getEdgeList()) {
-//                if (!visited[edge.getDestinationCity()]) {
-//                    queue.push(getCity(edge.getDestinationCity()));
-//                    visited[edge.getDestinationCity()] = true;
-//                }
-//            }
-//        }
-//    }
-//}
 
 vector<pair<int, pair<string, string>>> Graph::Prim(string startCity) {
 
