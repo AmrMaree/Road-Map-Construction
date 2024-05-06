@@ -1,11 +1,6 @@
 [
     {
-        "cities": [
-            {
-                "cityName": "sss",
-                "edges": []
-            }
-        ],
+        "cities": [],
         "graphName": "1"
     },
     {

@@ -321,24 +321,27 @@ void Graph::setCities(string cityName)
     cities[cityName] = City(cityName);
 }
 
-void Graph::BFS(string cityName, string& bfsOrder) {
+void Graph::BFS(string startCity, string& bfsOrder) {
+    if (!CityExist(startCity)) {
+        bfsOrder = "Starting city not found.\n";
+        return;
+    }
     unordered_map<string, bool> visited;
     queue<City> queue;
-    if (cities.find(cityName) != cities.end()) {
-        queue.push(getCity(cityName));
-        visited[cityName] = true;
-        while (!queue.empty()) {
-            City current = queue.front();
-            queue.pop();
-            bfsOrder += current.getCityName() + "  --> ";
-            for (Edge edge : current.getEdgeList()) {
-                if (!visited[edge.getDestinationCity()]) {
-                    queue.push(getCity(edge.getDestinationCity()));
-                    visited[edge.getDestinationCity()] = true;
-                }
+    queue.push(getCity(startCity));
+    visited[startCity] = true;
+    while (!queue.empty()) {
+        City current = queue.front();
+        queue.pop();
+        bfsOrder += current.getCityName() + "  --> ";
+        for (Edge edge : current.getEdgeList()) {
+            if (!visited[edge.getDestinationCity()]) {
+                queue.push(getCity(edge.getDestinationCity()));
+                visited[edge.getDestinationCity()] = true;
             }
         }
     }
+
     bfsOrder = bfsOrder.substr(0, bfsOrder.length() - 4);
 }
 
