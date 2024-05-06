@@ -1,119 +1,24 @@
 [
-<<<<<<< HEAD
-  {
-    "cities": [],
-    "graphName": "1"
-  },
-  {
-    "cities": [
-      {
-        "cityName": "a",
-        "edges": [
-          {
-            "destinationCity": "b",
-            "sourceCity": "a",
-            "weight": 5
-          },
-          {
-            "destinationCity": "c",
-            "sourceCity": "a",
-            "weight": 3
-          },
-          {
-            "destinationCity": "b",
-            "sourceCity": "a",
-            "weight": 5
-          },
-          {
-            "destinationCity": "c",
-            "sourceCity": "a",
-            "weight": 3
-          }
-        ]
-      },
-      {
-        "cityName": "b",
-        "edges": [
-          {
-            "destinationCity": "a",
-            "sourceCity": "b",
-            "weight": 5
-          },
-          {
-            "destinationCity": "c",
-            "sourceCity": "b",
-            "weight": 1
-          },
-          {
-            "destinationCity": "d",
-            "sourceCity": "b",
-            "weight": 2
-          },
-          {
-            "destinationCity": "c",
-            "sourceCity": "b",
-            "weight": 1
-          },
-          {
-            "destinationCity": "d",
-            "sourceCity": "b",
-            "weight": 2
-          }
-        ]
-      },
-      {
-        "cityName": "c",
-        "edges": [
-          {
-            "destinationCity": "a",
-            "sourceCity": "c",
-            "weight": 3
-          },
-          {
-            "destinationCity": "b",
-            "sourceCity": "c",
-            "weight": 1
-          },
-          {
-            "destinationCity": "d",
-            "sourceCity": "c",
-            "weight": 4
-          },
-          {
-            "destinationCity": "d",
-            "sourceCity": "c",
-            "weight": 4
-          }
-        ]
-      },
-      {
-        "cityName": "d",
-        "edges": [
-          {
-            "destinationCity": "b",
-            "sourceCity": "d",
-            "weight": 2
-          },
-          {
-            "destinationCity": "c",
-            "sourceCity": "d",
-            "weight": 4
-          }
-        ]
-      }
-    ],
-    "graphName": "2"
-  }
-=======
     {
-        "cities": [],
+        "cities": [
+            {
+                "cityName": "sss",
+                "edges": []
+            }
+        ],
         "graphName": "1"
     },
     {
         "cities": [
             {
-                "cityName": "domyat",
-                "edges": []
+                "cityName": "amr",
+                "edges": [
+                    {
+                        "destinationCity": "cairo",
+                        "sourceCity": "amr",
+                        "weight": 2
+                    }
+                ]
             },
             {
                 "cityName": "cairo",
@@ -132,33 +37,12 @@
                         "destinationCity": "joe",
                         "sourceCity": "cairo",
                         "weight": 7
-                    },
-                    {
-                        "destinationCity": "amr",
-                        "sourceCity": "cairo",
-                        "weight": 2
-                    },
-                    {
-                        "destinationCity": "menofia",
-                        "sourceCity": "cairo",
-                        "weight": 4
-                    },
-                    {
-                        "destinationCity": "joe",
-                        "sourceCity": "cairo",
-                        "weight": 7
                     }
                 ]
             },
             {
-                "cityName": "amr",
-                "edges": [
-                    {
-                        "destinationCity": "cairo",
-                        "sourceCity": "amr",
-                        "weight": 2
-                    }
-                ]
+                "cityName": "domyat",
+                "edges": []
             },
             {
                 "cityName": "menofia",
@@ -197,16 +81,6 @@
                         "destinationCity": "c",
                         "sourceCity": "a",
                         "weight": 3
-                    },
-                    {
-                        "destinationCity": "b",
-                        "sourceCity": "a",
-                        "weight": 5
-                    },
-                    {
-                        "destinationCity": "c",
-                        "sourceCity": "a",
-                        "weight": 3
                     }
                 ]
             },
@@ -217,16 +91,6 @@
                         "destinationCity": "a",
                         "sourceCity": "b",
                         "weight": 5
-                    },
-                    {
-                        "destinationCity": "c",
-                        "sourceCity": "b",
-                        "weight": 1
-                    },
-                    {
-                        "destinationCity": "d",
-                        "sourceCity": "b",
-                        "weight": 2
                     },
                     {
                         "destinationCity": "c",
@@ -257,11 +121,6 @@
                         "destinationCity": "d",
                         "sourceCity": "c",
                         "weight": 4
-                    },
-                    {
-                        "destinationCity": "d",
-                        "sourceCity": "c",
-                        "weight": 4
                     }
                 ]
             },
@@ -283,5 +142,4 @@
         ],
         "graphName": "3"
     }
->>>>>>> eb09d80f44c88252d29de21e9edfcf746c61fba9
 ]

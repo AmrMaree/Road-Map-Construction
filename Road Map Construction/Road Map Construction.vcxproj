@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
-    <LibraryPath>$(LibraryPath);C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib</LibraryPath>
+    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
-    <LibraryPath>$(LibraryPath);C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib</LibraryPath>
+    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
-    <LibraryPath>$(LibraryPath);C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib</LibraryPath>
+    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\include</IncludePath>
-    <LibraryPath>$(LibraryPath);C:\Users\PC\source\repos\Road Map Construction\Road Map Construction\Libraries\lib</LibraryPath>
+    <IncludePath>$(SolutionDir)/libraries/include/</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)/libraries/lib/</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\json-develop\include;D:\Amr\json-develop\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Amr\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\json-develop\include;D:\Amr\json-develop\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Amr\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\json-develop\include;D:\Amr\json-develop\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Amr\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>G:\json-develop\include;D:\Amr\json-develop\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Amr\json-develop\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

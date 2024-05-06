@@ -38,6 +38,7 @@ void Graph::deleteCity(string cityName)
     if (!CityExist(cityName))
     {
         cout << "Source city '" << cityName << "' does not exist.\n";
+        return;
     }
 
     string reqDest;
@@ -49,7 +50,7 @@ void Graph::deleteCity(string cityName)
         deleteEdge(reqDest, cityName);
     }
     cities.erase(cityName);
-    cout << cityName << "city is deleted successfully" << endl;
+    cout << cityName << " city is deleted successfully" << endl;
 
 }
 
@@ -58,9 +59,9 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
     vector <Edge> edgeListSource;
     vector <Edge> edgeListDestination;
 
-    /* if (!CityExist(sourceCity))
+     if (!CityExist(sourceCity))
      {
-         cout << "Source city '" << sourceCity << "' does not exist.\n";
+         /*cout << "Source city '" << sourceCity << "' does not exist.\n";
          cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
          string answer;
          cin >> answer;
@@ -69,14 +70,14 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
              addCity(City(sourceCity));
          }
          else
-         {
+         {*/
              return;
-         }
+         //}
 
      }
 
      if (!CityExist(destinationCity)) {
-         cout << "Destination city '" << destinationCity << "' does not exist.\n";
+         /*cout << "Destination city '" << destinationCity << "' does not exist.\n";
          cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
          string answer;
          cin >> answer;
@@ -85,11 +86,11 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
              addCity(City(destinationCity));
          }
          else
-         {
+         {*/
              return;
-         }
+         //}
      }
-     */
+    
     if (EdgeExist(sourceCity, destinationCity)) {
         //cout << "edge from '" << sourcecity << "' to '" << destinationcity << "' already exists.\n";
         return;

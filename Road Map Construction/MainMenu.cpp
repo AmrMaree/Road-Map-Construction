@@ -729,7 +729,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (saveInfoPopUpAddCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityName.empty()) {
-                            bgClock.restart();
+                            if(graph.CityExist(userInputCityName))
+                                bgClock.restart();
                             savedInfoAddCity = true;
                             graph.addCity(City(userInputCityName));
                             cout << graph.getCities()[userInputCityName].getCityName() << endl;
@@ -741,8 +742,10 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (saveInfoPopUpAddEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
 
-                        if (!userInputaddEdgeInfo[0].empty() && !userInputaddEdgeInfo[1].empty() && !userInputaddEdgeInfo[2].empty() && graph.CityExist(userInputaddEdgeInfo[0]) && graph.CityExist(userInputaddEdgeInfo[1])) {
-                            bgClock.restart();
+                        if (!userInputaddEdgeInfo[0].empty() && !userInputaddEdgeInfo[1].empty() && !userInputaddEdgeInfo[2].empty()) {
+                            if(graph.CityExist(userInputaddEdgeInfo[0]) && graph.CityExist(userInputaddEdgeInfo[1]) && !graph.EdgeExist(userInputaddEdgeInfo[0], userInputaddEdgeInfo[1]))
+                                bgClock.restart();
+                            cout << graph.EdgeExist(userInputaddEdgeInfo[0], userInputaddEdgeInfo[1]) << endl;
                             savedInfoAddEdge = true;
                             int edgeWeight = stoi(userInputaddEdgeInfo[2]);
                             graph.addEdge(userInputaddEdgeInfo[0], userInputaddEdgeInfo[1], edgeWeight);
@@ -756,8 +759,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpDeleteEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputDeleteEdgeInfo[0].empty() && !userInputDeleteEdgeInfo[1].empty() && graph.EdgeExist(userInputDeleteEdgeInfo[0], userInputDeleteEdgeInfo[1])) {
-                            bgClock.restart();
+                        if (!userInputDeleteEdgeInfo[0].empty() && !userInputDeleteEdgeInfo[1].empty()) {
+                            if(graph.EdgeExist(userInputDeleteEdgeInfo[0], userInputDeleteEdgeInfo[1]))
+                                bgClock.restart();
                             savedInfoDeleteEdge = true;
                             graph.deleteEdge(userInputDeleteEdgeInfo[0], userInputDeleteEdgeInfo[1]);
                             for (int i = 0; i < 2; i++)
@@ -770,9 +774,10 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpDeleteCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputCityNameDelete.empty() && graph.CityExist(userInputCityNameDelete)) {
+                        if (!userInputCityNameDelete.empty()) {
+                            if(graph.CityExist(userInputCityNameDelete))
+                                bgClock.restart();
                             savedInfoDeleteCity = true;
-                            bgClock.restart();
                             graph.deleteCity(userInputCityNameDelete);
                             userInputCityNameDelete.clear();
                             cityNameDelete.setString("");
