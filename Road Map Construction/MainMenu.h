@@ -68,6 +68,8 @@ private:
     Text DeleteEdgeConfirmation;
     vector<Text>graphName;
     vector<Text>selectedGraphCity;
+    Text bfsOrderText;
+    Text dfsOrderText;
 
     Font font;
 
