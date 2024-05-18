@@ -17,6 +17,9 @@ private:
     Texture backIcon;
     Texture popUpBox;
     Texture border;
+    Texture bgColor;
+    Texture Logo;
+    Texture Noti;
 
     Text StartText;
     Text addGraphButtonText;
@@ -43,7 +46,33 @@ private:
     Text EnterDestinationCityNameDeleteEdge;
     Text deleteEdgeInfo[2];
     Text selectGraphName;
+    Text CitiesIngraph;
+    Text ProceedToEditGraph;
+    Text BFS;
+    Text DFS;
+    Text PRIM;
+    Text Dijiktra;
+    Text EnterCityNameBFS;
+    Text EnterCityNameDFS;
+    Text EnterCityNamePRIM;
+    Text EnterCityNameDij;
+    Text saveInfoPopUpBFS;
+    Text saveInfoPopUpDFS;
+    Text saveInfoPopUpPRIM;
+    Text saveInfoPopUpDij;
+    Text cancelInfoPopUpAlgo;
+    Text cityNameBFS;
+    Text cityNameDFS;
+    Text cityNamePRIM;
+    Text cityNameDij;
+    Text AddCityConfirmation;
+    Text DeleteCityConfirmation;
+    Text AddEdgeConfirmation;
+    Text DeleteEdgeConfirmation;
     vector<Text>graphName;
+    vector<Text>selectedGraphCity;
+    Text bfsOrderText;
+    Text dfsOrderText;
 
     Font font;
 
@@ -53,8 +82,6 @@ private:
 public:
     MainMenu();
     void load();
-    void mainMenu(RenderWindow& window,Graph& graph, unordered_map<string, Graph>graphs);
-    
+    void mainMenu(RenderWindow& window, Graph& graph, unordered_map<string, Graph>& graphs);
+
 };
-
-
