@@ -55,13 +55,16 @@ private:
     Text EnterCityNameBFS;
     Text EnterCityNameDFS;
     Text EnterCityNamePRIM;
+    Text EnterCityNameDij;
     Text saveInfoPopUpBFS;
     Text saveInfoPopUpDFS;
     Text saveInfoPopUpPRIM;
+    Text saveInfoPopUpDij;
     Text cancelInfoPopUpAlgo;
     Text cityNameBFS;
     Text cityNameDFS;
     Text cityNamePRIM;
+    Text cityNameDij;
     Text AddCityConfirmation;
     Text DeleteCityConfirmation;
     Text AddEdgeConfirmation;

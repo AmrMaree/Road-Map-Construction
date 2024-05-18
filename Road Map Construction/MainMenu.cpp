@@ -52,9 +52,11 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     bool DFSOpen = false;
     bool BFSOpen = false;
     bool PrimOpen = false;
+    bool DijOpen = false;
     bool addCityDFSOpen = false;
     bool addCityBFSOpen = false;
     bool addCityPrimOpen = false;
+    bool addCityDijOpen = false;
     bool savedInfoAddCity = false;
     bool savedInfoAddEdge = false;
     bool savedInfoDeleteCity = false;
@@ -166,15 +168,19 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
 
     Sprite BFSs(addGraphButton);
     BFSs.setScale(0.42, 0.42);
-    BFSs.setPosition(7980, 688);
+    BFSs.setPosition(7980, 538);
 
     Sprite DFSs(addGraphButton);
     DFSs.setScale(0.42, 0.42);
-    DFSs.setPosition(8480, 688);
+    DFSs.setPosition(8480, 538);
 
     Sprite PRIMs(addGraphButton);
     PRIMs.setScale(0.42, 0.42);
-    PRIMs.setPosition(8980, 688);
+    PRIMs.setPosition(8980, 538);
+
+    Sprite Dijkstras(addGraphButton);
+    Dijkstras.setScale(0.42, 0.42);
+    Dijkstras.setPosition(8480, 738);
 
     Sprite popUpBoxAlgoS(popUpBox);
     popUpBoxAlgoS.setPosition(8340, 200);
@@ -358,19 +364,25 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     BFS.setFont(font);
     BFS.setScale(1.5, 1.5);
     BFS.setOutlineThickness(1.2);
-    BFS.setPosition(8085, 730);
+    BFS.setPosition(8085, 580);
 
     DFS.setString("DFS");
     DFS.setFont(font);
     DFS.setScale(1.5, 1.5);
     DFS.setOutlineThickness(1.2);
-    DFS.setPosition(8585, 730);
+    DFS.setPosition(8585, 580);
 
     PRIM.setString("Prim's");
     PRIM.setFont(font);
     PRIM.setScale(1.5, 1.5);
     PRIM.setOutlineThickness(1.2);
-    PRIM.setPosition(9076, 730);
+    PRIM.setPosition(9076, 580);
+
+    Dijiktra.setString("Dijkstra");
+    Dijiktra.setFont(font);
+    Dijiktra.setScale(1.5, 1.5);
+    Dijiktra.setOutlineThickness(1.2);
+    Dijiktra.setPosition(8555, 780);
 
     EnterCityNameBFS.setString("Enter City Name : ");
     EnterCityNameBFS.setFont(font);
@@ -393,6 +405,11 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     cityNamePRIM.setOutlineThickness(1.2);
     cityNamePRIM.setPosition(popUpBoxAlgoS.getPosition().x + 295, popUpBoxAlgoS.getPosition().y + 150);
 
+    cityNameDij.setFont(font);
+    cityNameDij.setScale(1, 1);
+    cityNameDij.setOutlineThickness(1.2);
+    cityNameDij.setPosition(popUpBoxAlgoS.getPosition().x + 295, popUpBoxAlgoS.getPosition().y + 150);
+
     EnterCityNameDFS.setString("Enter City Name : ");
     EnterCityNameDFS.setFont(font);
     EnterCityNameDFS.setScale(1, 1);
@@ -404,6 +421,12 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     EnterCityNamePRIM.setScale(1, 1);
     EnterCityNamePRIM.setOutlineThickness(1.2);
     EnterCityNamePRIM.setPosition(popUpBoxAlgoS.getPosition().x + 48, popUpBoxAlgoS.getPosition().y + 150);
+
+    EnterCityNameDij.setString("Enter City Name : ");
+    EnterCityNameDij.setFont(font);
+    EnterCityNameDij.setScale(1, 1);
+    EnterCityNameDij.setOutlineThickness(1.2);
+    EnterCityNameDij.setPosition(popUpBoxAlgoS.getPosition().x + 48, popUpBoxAlgoS.getPosition().y + 150);
 
     saveInfoPopUpBFS.setString("Search");
     saveInfoPopUpBFS.setFont(font);
@@ -422,6 +445,12 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     saveInfoPopUpPRIM.setScale(1.17, 1.17);
     saveInfoPopUpPRIM.setOutlineThickness(1.5);
     saveInfoPopUpPRIM.setPosition(popUpBoxAlgoS.getPosition().x + 378, popUpBoxAlgoS.getPosition().y + 300);
+
+    saveInfoPopUpDij.setString("Search");
+    saveInfoPopUpDij.setFont(font);
+    saveInfoPopUpDij.setScale(1.17, 1.17);
+    saveInfoPopUpDij.setOutlineThickness(1.5);
+    saveInfoPopUpDij.setPosition(popUpBoxAlgoS.getPosition().x + 378, popUpBoxAlgoS.getPosition().y + 300);
 
     cancelInfoPopUpAlgo.setString("Cancel");
     cancelInfoPopUpAlgo.setFont(font);
@@ -467,6 +496,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
     string userInputCityNameBFS;
     string userInputCityNameDFS;
     string userInputCityNamePRIM;
+    string userInputCityNameDij;
 
     View pane2(FloatRect(1920, 0, 1920, 1080));//selection page
     View pane3(FloatRect(3840, 0, 1920, 1080));//addGraph page
@@ -538,6 +568,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
+                        DijOpen = false;
                         bfsResultOpen = false;
                         dfsResultOpen = false;
                         addCityDFSOpen = true;
@@ -547,6 +578,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
+                        DijOpen = false;
                         bfsResultOpen = false;
                         dfsResultOpen = false;
                         addCityBFSOpen = true;
@@ -556,9 +588,20 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = false;
                         BFSOpen = false;
                         PrimOpen = false;
+                        DijOpen = false;
                         bfsResultOpen = false;
                         dfsResultOpen = false;
                         addCityPrimOpen = true;
+                    }
+                    if (Dijkstras.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y) && DijOpen)
+                    {
+                        DFSOpen = false;
+                        BFSOpen = false;
+                        PrimOpen = false;
+                        DijOpen = false;
+                        bfsResultOpen = false;
+                        dfsResultOpen = false;
+                        addCityDijOpen = true;
                     }
                     for (int i = 1; i < graphs.size(); ++i)
                     {
@@ -615,6 +658,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         DFSOpen = true;
                         BFSOpen = true;
                         PrimOpen = true;
+                        DijOpen = true;
                         displayGraphOpen = true;
                         loadGraphOpen = false;
                         window.setView(pane5);
@@ -653,9 +697,12 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         cityNameDFS.setString("");
                         userInputCityNamePRIM.clear();
                         cityNamePRIM.setString("");
+                        userInputCityNameDij.clear();
+                        cityNameDij.setString("");
                         BFSOpen = true;
                         DFSOpen = true;
                         PrimOpen = true;
+                        DijOpen = true;
 
                     }
                     if (closePopUpAlgo.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))
@@ -666,17 +713,21 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         cityNameDFS.setString("");
                         userInputCityNamePRIM.clear();
                         cityNamePRIM.setString("");
+                        userInputCityNameDij.clear();
+                        cityNameDij.setString("");
                         BFSOpen = true;
                         DFSOpen = true;
                         PrimOpen = true;
+                        DijOpen = true;
                         addCityBFSOpen = false;
                         addCityDFSOpen = false;
                         addCityPrimOpen = false;
+                        addCityDijOpen = false;
                     }
                     if (saveInfoPopUpBFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityNameBFS.empty() && graph.CityExist(userInputCityNameBFS)) {
-                            string bfsResult,strBFS;
+                            string bfsResult, strBFS;
                             graph.BFS(userInputCityNameBFS, bfsResult);
                             bfsOrderText.setString(bfsResult);
                             bfsOrderText.setFont(font);
@@ -691,6 +742,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             BFSOpen = true;
                             DFSOpen = true;
                             PrimOpen = true;
+                            DijOpen = true;
                         }
                     }
                     if (saveInfoPopUpDFS.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
@@ -711,6 +763,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             BFSOpen = true;
                             DFSOpen = true;
                             PrimOpen = true;
+                            DijOpen = true;
                         }
                     }
                     if (saveInfoPopUpPRIM.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
@@ -724,13 +777,28 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                             BFSOpen = true;
                             DFSOpen = true;
                             PrimOpen = true;
+                            DijOpen = true;
+
+                        }
+                    }
+                    if (saveInfoPopUpDij.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
+                    {
+                        if (!userInputCityNameDij.empty() && graph.CityExist(userInputCityNameDij)) {
+                            // do function
+                            userInputCityNameDij.clear();
+                            cityNameDij.setString("");
+                            addCityDijOpen = false;
+                            BFSOpen = true;
+                            DFSOpen = true;
+                            PrimOpen = true;
+                            DijOpen = true;
+
                         }
                     }
                     if (saveInfoPopUpAddCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityName.empty()) {
-                            if(graph.CityExist(userInputCityName))
-                                bgClock.restart();
+                            bgClock.restart();
                             savedInfoAddCity = true;
                             graph.addCity(City(userInputCityName));
                             cout << graph.getCities()[userInputCityName].getCityName() << endl;
@@ -742,10 +810,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (saveInfoPopUpAddEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
 
-                        if (!userInputaddEdgeInfo[0].empty() && !userInputaddEdgeInfo[1].empty() && !userInputaddEdgeInfo[2].empty()) {
-                            if(graph.CityExist(userInputaddEdgeInfo[0]) && graph.CityExist(userInputaddEdgeInfo[1]) && !graph.EdgeExist(userInputaddEdgeInfo[0], userInputaddEdgeInfo[1]))
-                                bgClock.restart();
-                            cout << graph.EdgeExist(userInputaddEdgeInfo[0], userInputaddEdgeInfo[1]) << endl;
+                        if (!userInputaddEdgeInfo[0].empty() && !userInputaddEdgeInfo[1].empty() && !userInputaddEdgeInfo[2].empty() && graph.CityExist(userInputaddEdgeInfo[0]) && graph.CityExist(userInputaddEdgeInfo[1])) {
+                            bgClock.restart();
                             savedInfoAddEdge = true;
                             int edgeWeight = stoi(userInputaddEdgeInfo[2]);
                             graph.addEdge(userInputaddEdgeInfo[0], userInputaddEdgeInfo[1], edgeWeight);
@@ -759,9 +825,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpDeleteEdge.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputDeleteEdgeInfo[0].empty() && !userInputDeleteEdgeInfo[1].empty()) {
-                            if(graph.EdgeExist(userInputDeleteEdgeInfo[0], userInputDeleteEdgeInfo[1]))
-                                bgClock.restart();
+                        if (!userInputDeleteEdgeInfo[0].empty() && !userInputDeleteEdgeInfo[1].empty() && graph.EdgeExist(userInputDeleteEdgeInfo[0], userInputDeleteEdgeInfo[1])) {
+                            bgClock.restart();
                             savedInfoDeleteEdge = true;
                             graph.deleteEdge(userInputDeleteEdgeInfo[0], userInputDeleteEdgeInfo[1]);
                             for (int i = 0; i < 2; i++)
@@ -774,10 +839,9 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     }
                     if (saveInfoPopUpDeleteCity.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y))     //save hena el info men el user 
                     {
-                        if (!userInputCityNameDelete.empty()) {
-                            if(graph.CityExist(userInputCityNameDelete))
-                                bgClock.restart();
+                        if (!userInputCityNameDelete.empty() && graph.CityExist(userInputCityNameDelete)) {
                             savedInfoDeleteCity = true;
+                            bgClock.restart();
                             graph.deleteCity(userInputCityNameDelete);
                             userInputCityNameDelete.clear();
                             cityNameDelete.setString("");
@@ -819,12 +883,18 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
 
                         userInputCityNamePRIM.clear();
                         cityNamePRIM.setString("");
+
+                        userInputCityNameDij.clear();
+                        cityNameDij.setString("");
+
                         BFSOpen = true;
                         DFSOpen = true;
                         PrimOpen = true;
+                        DijOpen = true;
                         addCityBFSOpen = false;
                         addCityDFSOpen = false;
                         addCityPrimOpen = false;
+                        addCityDijOpen = false;
                     }
                     if (backIconAddGraphS.getGlobalBounds().contains(event.mouseButton.x + 3840, event.mouseButton.y) && backIconAddGraphOpen) {
                         graphs[to_string(max + 1)] = graph;
@@ -982,6 +1052,13 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 {
                     PRIMs.setScale(0.42, 0.42);
                 }
+                if (Dijkstras.getGlobalBounds().contains(mousePos)) {
+                    Dijkstras.setScale(0.41, 0.41);
+                }
+                else
+                {
+                    Dijkstras.setScale(0.42, 0.42);
+                }
                 if (saveInfoPopUpAddCity.getGlobalBounds().contains(mousePos)) {
                     saveInfoPopUpAddCity.setScale(1.15, 1.15);
                 }
@@ -1037,6 +1114,13 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 else
                 {
                     saveInfoPopUpPRIM.setScale(1.17, 1.17);
+                }
+                if (saveInfoPopUpDij.getGlobalBounds().contains(mousePos)) {
+                    saveInfoPopUpDij.setScale(1.15, 1.15);
+                }
+                else
+                {
+                    saveInfoPopUpDij.setScale(1.17, 1.17);
                 }
                 if (cancelInfoPopUpAlgo.getGlobalBounds().contains(mousePos)) {
                     cancelInfoPopUpAlgo.setScale(1.15, 1.15);
@@ -1135,6 +1219,16 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                         cityNamePRIM.setString(userInputCityNamePRIM);
                     }
                 }
+                if (event.text.unicode < 128 && addCityDijOpen) {
+                    if (event.text.unicode == '\b' && !userInputCityNameDij.empty()) { // Backspace
+                        userInputCityNameDij.pop_back();
+                        cityNameDij.setString(userInputCityNameDij);
+                    }
+                    else {
+                        userInputCityNameDij += static_cast<char>(event.text.unicode);
+                        cityNameDij.setString(userInputCityNameDij);
+                    }
+                }
             }
         }
         window.draw(homeS);
@@ -1200,30 +1294,7 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                 window.draw(deleteEdgeInfo[i]);
             }
         }
-        if (addCityBFSOpen)
-        {
-            window.draw(popUpBoxAlgoS);
-            window.draw(saveInfoPopUpBFS);
-            window.draw(cancelInfoPopUpAlgo);
-            window.draw(EnterCityNameBFS);
-            window.draw(cityNameBFS);
-        }
-        if (addCityDFSOpen)
-        {
-            window.draw(popUpBoxAlgoS);
-            window.draw(saveInfoPopUpDFS);
-            window.draw(cancelInfoPopUpAlgo);
-            window.draw(EnterCityNameDFS);
-            window.draw(cityNameDFS);
-        }
-        if (addCityPrimOpen)
-        {
-            window.draw(popUpBoxAlgoS);
-            window.draw(saveInfoPopUpPRIM);
-            window.draw(cancelInfoPopUpAlgo);
-            window.draw(EnterCityNamePRIM);
-            window.draw(cityNamePRIM);
-        }
+
         if (bfsResultOpen)
         {
             window.draw(bfsOrderText);
@@ -1252,9 +1323,43 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
         window.draw(DFSs);
         window.draw(BFSs);
         window.draw(PRIMs);
+        window.draw(Dijkstras);
         window.draw(DFS);
         window.draw(BFS);
         window.draw(PRIM);
+        window.draw(Dijiktra);
+        if (addCityBFSOpen)
+        {
+            window.draw(popUpBoxAlgoS);
+            window.draw(saveInfoPopUpBFS);
+            window.draw(cancelInfoPopUpAlgo);
+            window.draw(EnterCityNameBFS);
+            window.draw(cityNameBFS);
+        }
+        if (addCityDFSOpen)
+        {
+            window.draw(popUpBoxAlgoS);
+            window.draw(saveInfoPopUpDFS);
+            window.draw(cancelInfoPopUpAlgo);
+            window.draw(EnterCityNameDFS);
+            window.draw(cityNameDFS);
+        }
+        if (addCityPrimOpen)
+        {
+            window.draw(popUpBoxAlgoS);
+            window.draw(saveInfoPopUpPRIM);
+            window.draw(cancelInfoPopUpAlgo);
+            window.draw(EnterCityNamePRIM);
+            window.draw(cityNamePRIM);
+        }
+        if (addCityDijOpen)
+        {
+            window.draw(popUpBoxAlgoS);
+            window.draw(saveInfoPopUpDij);
+            window.draw(cancelInfoPopUpAlgo);
+            window.draw(EnterCityNameDij);
+            window.draw(cityNameDij);
+        }
         if (savedInfoAddCity && bgClock.getElapsedTime().asSeconds() <= 2.f)
         {
             window.draw(NotiS);

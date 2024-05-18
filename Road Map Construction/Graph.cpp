@@ -61,40 +61,18 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
 
      if (!CityExist(sourceCity))
      {
-         /*cout << "Source city '" << sourceCity << "' does not exist.\n";
-         cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
-         string answer;
-         cin >> answer;
-         if (answer == "yes" || answer == "YES")
-         {
-             addCity(City(sourceCity));
-         }
-         else
-         {*/
-             return;
-         //}
-
+         return;
      }
 
-     if (!CityExist(destinationCity)) {
-         /*cout << "Destination city '" << destinationCity << "' does not exist.\n";
-         cout << "To Add it please enter YES or yes  " << endl << "To return to the menu please enter NO or no";
-         string answer;
-         cin >> answer;
-         if (answer == "yes" || answer == "YES")
-         {
-             addCity(City(destinationCity));
-         }
-         else
-         {*/
-             return;
-         //}
+     if (!CityExist(destinationCity)) 
+     {
+         return;
      }
     
-    if (EdgeExist(sourceCity, destinationCity)) {
-        //cout << "edge from '" << sourcecity << "' to '" << destinationcity << "' already exists.\n";
-        return;
-    }
+     if (EdgeExist(sourceCity, destinationCity)) 
+     {
+         return;
+     }
 
     edgeListSource = cities[sourceCity].getEdgeList();
     edgeListSource.push_back(Edge(sourceCity, destinationCity, weight));
@@ -103,8 +81,6 @@ void Graph::addEdge(string sourceCity, string destinationCity, int weight)
     edgeListDestination = cities[destinationCity].getEdgeList();
     edgeListDestination.push_back(Edge(destinationCity, sourceCity, weight));
     cities[destinationCity].setEdgeList(edgeListDestination);
-
-    //cout << "Edge successfully added from '" << sourceCity << "' to '" << destinationCity << "' with weight " << weight << ".\n";
 }
 
 bool Graph::EdgeExist(string sourceCity, string destinationCity)
@@ -121,35 +97,6 @@ bool Graph::EdgeExist(string sourceCity, string destinationCity)
     }
     return false;
 }
-
-//void Graph::deleteEdge(string sourceCity, string destinationCity)
-//{
-//    bool check = EdgeExist(sourceCity, destinationCity);
-//    if (check)
-//    {
-//            if (cities.find(sourceCity)!=cities.end())
-//            {
-//                for (auto it = cities[sourceCity].getEdgeList().begin(); it != cities[sourceCity].getEdgeList().end(); it++)
-//                {
-//                    if (it->getDestinationCity() == destinationCity) {
-//                        cities[sourceCity].getEdgeList().erase(it);
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if (cities.find(destinationCity) != cities.end())
-//            {
-//                for (auto it = cities[destinationCity].getEdgeList().begin(); it != cities[destinationCity].getEdgeList().end(); it++)
-//                {
-//                    if (it->getDestinationCity() == sourceCity) {
-//                        cities[destinationCity].getEdgeList().erase(it);
-//                        break;
-//                    }
-//                }
-//            }
-//    }
-//}
 
 void Graph::deleteEdge(string sourceCity, string destinationCity)
 {
@@ -345,7 +292,6 @@ void Graph::BFS(string startCity, string& bfsOrder) {
     bfsOrder = bfsOrder.substr(0, bfsOrder.length() - 4);
 }
 
-
 void Graph::DFS(string startCity, string& dfsOrder) {
     if (!CityExist(startCity)) {
         dfsOrder = "Starting city not found.\n";
@@ -370,7 +316,6 @@ void Graph::DFS(string startCity, string& dfsOrder) {
     }
     dfsOrder = dfsOrder.substr(0, dfsOrder.length() - 4);
 }
-
 
 vector<pair<int, pair<string, string>>> Graph::Prim(string startCity) {
 
