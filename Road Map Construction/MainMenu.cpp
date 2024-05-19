@@ -784,7 +784,8 @@ void MainMenu::mainMenu(RenderWindow& window, Graph& graph, unordered_map<string
                     if (saveInfoPopUpDij.getGlobalBounds().contains(event.mouseButton.x + 7680, event.mouseButton.y))     //save hena el info men el user 
                     {
                         if (!userInputCityNameDij.empty() && graph.CityExist(userInputCityNameDij)) {
-                            // do function
+                            graph.Dijkstra(userInputCityNameDij);
+                            graph.drawDijkstra(userInputCityNameDij);
                             userInputCityNameDij.clear();
                             cityNameDij.setString("");
                             addCityDijOpen = false;

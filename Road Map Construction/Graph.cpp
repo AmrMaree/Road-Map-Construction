@@ -166,12 +166,8 @@ void Graph::displayGraph()
     mt19937 gen(rd());
     uniform_int_distribution<> disX(100, 700);// Random x coordinate between 50 and 750
     uniform_int_distribution<> disY(100, 500); // Random y coordinate between 50 and 550
-
-    for (auto pair : cities) {
-        City city = pair.second;
-        float x = static_cast<float>(disX(gen));
-        float y = static_cast<float>(disY(gen));
-        // Check if the city is too close to any other city
+ 
+      // Check if the city is too close to any other city
         for (auto& pair : cities) {
             City& city = pair.second;
             float x = static_cast<float>(disX(gen));
@@ -194,8 +190,7 @@ void Graph::displayGraph()
             city.setX(x);
             city.setY(y);
         }
-    }
-
+    
     // Calculate offset to center the graph
     float offsetX = 400.f; // Half the width of the window
     float offsetY = 300.f; // Half the height of the window
@@ -297,7 +292,6 @@ void Graph::DFS(string startCity, string& dfsOrder) {
         dfsOrder = "Starting city not found.\n";
         return;
     }
-
     unordered_map<string, bool> visited;
     stack<City> stack;
     stack.push(getCity(startCity));
@@ -443,3 +437,146 @@ void Graph::drawMST(vector<pair<int, pair<string, string>>> MST) {
         window.display();
     }
 }
+void Graph::Dijkstra(string sourceCity) {
+    // Initialize distances for all cities as infinite
+    unordered_map<string, int> distances;
+    for (auto const& city : cities) {
+        distances[city.first] = numeric_limits<int>::max();
+    }
+
+    // Priority queue to store cities with minimum distance
+    priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+
+    // Set source city distance to 0 and mark it visited
+    distances[sourceCity] = 0;
+    pq.push({ 0, sourceCity });
+
+    while (!pq.empty()) {
+        // Get the city with the minimum distance from the priority queue
+        string cityName = pq.top().second;
+        int currentDistance = pq.top().first;
+        pq.pop();
+
+        // Process neighbors of the current city
+        for (Edge edge : cities[cityName].getEdgeList()) {
+            string neighbor = edge.getDestinationCity();
+            int newDistance = currentDistance + edge.getWeight();
+
+            // Update distance if the new path is shorter
+            if (distances[neighbor] > newDistance) {
+                distances[neighbor] = newDistance;
+                pq.push({ newDistance, neighbor }); // Update priority queue with new distance and city
+            }
+        }
+    }
+
+    // Print the results with (distance, city) pairs
+    cout << "Shortest distances from source city " << sourceCity << ":" << endl;
+    for (auto const& city : cities) {
+        if (distances[city.first] != numeric_limits<int>::max()) {
+            cout << city.first << " - " << distances[city.first] << endl;
+        }
+        else {
+            cout << city.first << " - Unreachable" << endl; // Unreachable city marked with "Unreachable"
+        }
+    }
+}
+void Graph::drawDijkstra(string sourceCity) {
+    // Calculate shortest distances using Dijkstra's algorithm
+    unordered_map<string, int> distances;
+    for (auto const& city : cities) {
+        distances[city.first] = numeric_limits<int>::max();
+    }
+    priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
+    distances[sourceCity] = 0;
+    pq.push({ 0, sourceCity });
+
+    while (!pq.empty()) {
+        string cityName = pq.top().second;
+        int currentDistance = pq.top().first;
+        pq.pop();
+
+        for (Edge edge : cities[cityName].getEdgeList()) {
+            string neighbor = edge.getDestinationCity();
+            int newDistance = currentDistance + edge.getWeight();
+            if (distances[neighbor] > newDistance) {
+                distances[neighbor] = newDistance;
+                pq.push({ newDistance, neighbor });
+            }
+        }
+    }
+
+    // Create window
+    RenderWindow window(sf::VideoMode(900, 700), "Dijkstra Graph Drawing");
+    window.setFramerateLimit(60);
+
+    // Load textures and font
+    Texture bg;
+    bg.loadFromFile("Textures/bgColor.png");
+    Sprite bgS(bg);
+
+    Texture locationIcon;
+    locationIcon.loadFromFile("Textures/LocationIcon.png");
+
+    Font font;
+    font.loadFromFile("Fonts/font.otf");
+
+    while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear(Color::White);
+        window.draw(bgS);
+        // Draw cities
+        for (auto pair : cities) {
+            City city = pair.second;
+            Sprite locationIconS(locationIcon);
+            locationIconS.setScale(0.1, 0.1);
+            locationIconS.setPosition(city.getX(), city.getY());
+            window.draw(locationIconS);
+
+            // Draw city name
+            Text text;
+            text.setString(city.getCityName());
+            text.setFont(font);
+            text.setCharacterSize(25);
+            text.setOutlineThickness(1.07);
+            text.setFillColor(Color::Black);
+            text.setPosition(city.getX() + 45, city.getY() - 5);
+            window.draw(text);
+
+            
+
+            // Draw edges
+            for (Edge edge : cities[city.getCityName()].getEdgeList()) {
+                City destinationCity = cities[edge.getDestinationCity()];
+                VertexArray line(Lines, 2);
+                line[0].position = Vector2f(city.getX() + 25, city.getY() + 20);
+                line[1].position = Vector2f(destinationCity.getX() + 25, destinationCity.getY() + 20);
+                line[0].color = Color::Red;
+                line[1].color = Color::Red;
+                window.draw(line);
+                // Calculate midpoint of the line
+                float midX = (city.getX() + destinationCity.getX()) / 2.0f;
+                float midY = (city.getY() + destinationCity.getY()) / 2.0f;
+
+                // Draw distance as text
+                Text distanceText;
+                distanceText.setString(to_string(edge.getWeight())); // Assuming edge weight is the distance
+                distanceText.setFont(font);
+                distanceText.setCharacterSize(25);
+                distanceText.setOutlineThickness(0.55);
+                distanceText.setFillColor(Color::Black);
+                distanceText.setPosition(midX, midY);
+                window.draw(distanceText);
+            }
+        }
+
+        window.display();
+    }
+}
+
+

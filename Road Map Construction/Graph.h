@@ -4,6 +4,7 @@
 #include<queue>
 #include<stack>
 #include<vector>
+#include<limits>
 #include<unordered_map>
 #include<SFML/Graphics.hpp>
 #include<random>
@@ -38,4 +39,6 @@ public:
     vector<pair<int, pair<string, string>>> Prim(string startCity);
     void clearGraph();
     void setCities(string cityName);
+    void Dijkstra(string sourceCity);
+    void drawDijkstra(string sourceCity);
 };
