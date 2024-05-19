@@ -242,8 +242,6 @@ void Graph::displayGraph()
                 line[1].color = sf::Color::Black;
                 window.draw(line);
             }
-
-
         }
         window.display();
     }
@@ -310,7 +308,6 @@ void Graph::DFS(string startCity, string& dfsOrder) {
     }
     dfsOrder = dfsOrder.substr(0, dfsOrder.length() - 4);
 }
-
 vector<pair<int, pair<string, string>>> Graph::Prim(string startCity) {
 
     unordered_map<string, bool> visited;
@@ -484,8 +481,10 @@ void Graph::Dijkstra(string sourceCity) {
 void Graph::drawDijkstra(string sourceCity) {
     // Calculate shortest distances using Dijkstra's algorithm
     unordered_map<string, int> distances;
+    unordered_map<string, string> previous;
     for (auto const& city : cities) {
         distances[city.first] = numeric_limits<int>::max();
+        previous[city.first] = "";
     }
     priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> pq;
     distances[sourceCity] = 0;
@@ -501,6 +500,7 @@ void Graph::drawDijkstra(string sourceCity) {
             int newDistance = currentDistance + edge.getWeight();
             if (distances[neighbor] > newDistance) {
                 distances[neighbor] = newDistance;
+                previous[neighbor] = cityName;
                 pq.push({ newDistance, neighbor });
             }
         }
@@ -548,24 +548,22 @@ void Graph::drawDijkstra(string sourceCity) {
             text.setPosition(city.getX() + 45, city.getY() - 5);
             window.draw(text);
 
-            
-
-            // Draw edges
-            for (Edge edge : cities[city.getCityName()].getEdgeList()) {
-                City destinationCity = cities[edge.getDestinationCity()];
+            // Draw edges only if part of the shortest path
+            if (previous[city.getCityName()] != "") {
+                City previousCity = cities[previous[city.getCityName()]];
                 VertexArray line(Lines, 2);
                 line[0].position = Vector2f(city.getX() + 25, city.getY() + 20);
-                line[1].position = Vector2f(destinationCity.getX() + 25, destinationCity.getY() + 20);
+                line[1].position = Vector2f(previousCity.getX() + 25, previousCity.getY() + 20);
                 line[0].color = Color::Red;
                 line[1].color = Color::Red;
                 window.draw(line);
                 // Calculate midpoint of the line
-                float midX = (city.getX() + destinationCity.getX()) / 2.0f;
-                float midY = (city.getY() + destinationCity.getY()) / 2.0f;
+                float midX = (city.getX() + previousCity.getX()) / 2.0f;
+                float midY = (city.getY() + previousCity.getY()) / 2.0f;
 
                 // Draw distance as text
                 Text distanceText;
-                distanceText.setString(to_string(edge.getWeight())); // Assuming edge weight is the distance
+                distanceText.setString(to_string(distances[city.getCityName()])); // Assuming edge weight is the distance
                 distanceText.setFont(font);
                 distanceText.setCharacterSize(25);
                 distanceText.setOutlineThickness(0.55);
@@ -578,5 +576,6 @@ void Graph::drawDijkstra(string sourceCity) {
         window.display();
     }
 }
+
 
 
